@@ -15,18 +15,17 @@
 
 }
 
-
-.mapAsBackground {
-background-image: url('/images/mapBackground.png');
-}
-
-
-.constant-centered {
+.constant-ratio {
     margin: auto;
     margin-top: var(--margeH);
     margin-bottom: var(--margeH);
     width: var(--dim);
     height: var(--dim);
+}
+
+
+.mapAsBackground {
+background-image: url('/images/mapBackground.png');
 }
 
 

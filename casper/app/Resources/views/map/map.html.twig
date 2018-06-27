@@ -2,6 +2,7 @@
 
 {% block body %}
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-12 text-center">
                 &lg;Titre ici&gt;
@@ -9,14 +10,20 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-10 mapAsBackground text-center constant-centered" id="map">
-                {# for now, parameters in yml cannot be associative arrays,
-                    so we were obliged to use an indexed one #}
-                <div style="position: absolute; top: {{ pos[1] }}%; left: {{ pos[0] }}%">
-                    X
+            <div class="col-12 col-lg-10 text-centered">
+
+                <div class="mapAsBackground constant-ratio" id="map">
+
+                    {# for now, parameters in yml cannot be associative arrays,
+                        so we were obliged to use an indexed one #}
+                    <div style="position: absolute; top: {{ pos[1] }}%; left: {{ pos[0] }}%">
+                        X
+                    </div>
+
                 </div>
 
             </div>
+
             <div class="col-12 col-lg-2">
                 test
             </div>
@@ -25,6 +32,7 @@
         <div class="col-12 text-center">
             <p>footer</p>
         </div>
+
     </div>
 {% endblock %}
 
