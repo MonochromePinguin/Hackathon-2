@@ -1,0 +1,31 @@
+/* define the dimensions of the map so that it is of constant ratio */
+@media ( max-aspect-ratio: 1/1 ) {
+    :root {
+        --dim: 80vw;
+        --margeH: calc( (100vh - var(--dim) ) /2 );
+    }
+
+}
+
+@media ( min-aspect-ratio: 1/1 ) {
+    :root {
+        --dim: 80vh;
+        --margeH: 10vh;
+    }
+
+}
+
+.constant-ratio {
+    margin: auto;
+    margin-top: var(--margeH);
+    margin-bottom: var(--margeH);
+    width: var(--dim);
+    height: var(--dim);
+}
+
+
+.mapAsBackground {
+background-image: url('/images/mapBackground.png');
+}
+
+
