@@ -11,21 +11,12 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Method({"GET"}
+     * @Method({"GET"})
      */
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
         return $this->render('index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
-    }
-
-    /**
-     * @Route("/testMap", name="map")
-     */
-    public function mapAction()
-    {
-        return $this->render('map.html.twig')
     }
 }
