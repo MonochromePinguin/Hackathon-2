@@ -12,6 +12,7 @@ parameters:
     # **in percent of map's dimensions, X and Y**
     #TODO: find a way to use associative array
     defaultPosition: [50, 50]
+    defaultGPScoordinates: [-1.018332, 44.687345 ]
 
 
 framework:
