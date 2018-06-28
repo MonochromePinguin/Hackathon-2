@@ -28,5 +28,6 @@
 }
 
 .mapAsBackground {
-background-image: url('/images/mapBackground.png');
+    background: url('/images/mapBackground.png') no-repeat;
+    background-size: cover;
 }

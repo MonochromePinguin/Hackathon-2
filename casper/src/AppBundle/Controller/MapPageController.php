@@ -11,21 +11,10 @@ class MapPageController extends Controller
 {
     private $position;
 
-    //the GPS coordinate of the center of the map – used to convert GPS
-    // coordinates to map percentages ...
-    private static $gpsCenterX;
-    private static $gpsCenterY;
-
-    private const RATIO_X = 1;
-    private const RATIO_Y = 100000;
-
-
-    # the $defaultPosition and $defaultGPScoordinates parameters are injected here
-    public function __construct(array $defaultPosition, array $defaultGPScoordinates)
+    # the $defaultPosition parameter is injected here
+    public function __construct(array $defaultPosition)
     {
         $this->position = $defaultPosition;
-        self::$gpsCenterX = $defaultGPScoordinates[0];
-        self::$gpsCenterY = $defaultGPScoordinates[1];
     }
 
     /**
@@ -40,23 +29,8 @@ class MapPageController extends Controller
                      ->getRepository(Attraction::class);
         $attractions = $repo->findAll();
 
-        $attractionPositions = [];
-
-        foreach ($attractions as $attraction) {
-            # the calculated position is in percent of the parent div
-            $attractionPositions[] = [
-                'x' => 50 + ((
-                        $attraction->getLongitude() - self::$gpsCenterX
-                ) * self::RATIO_X),
-                'y' => 50 + ((
-                    $attraction->getLatitude() - self::$gpsCenterY
-                ) * self::RATIO_Y)
-            ];
-        }
-
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
-            'attractionPositions' => $attractionPositions,
             'viewerPos' => $this->position
         ]);
     }

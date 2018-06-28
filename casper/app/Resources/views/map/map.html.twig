@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="background:gray;">
 
         <div class="row">
             <div class="col-12 text-center">
@@ -10,7 +10,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-10 text-centered">
+            <div class="col-12 col-lg-11 m-0 p-0 text-centered">
 
                 <div class="mapAsBackground constant-ratio relativeContainer" id="map">
                     {# for now, parameters in yml cannot be associative arrays,
@@ -20,11 +20,10 @@
                         X
                     </div>
 
-                    {# list of attractions and other things to show #}
                     {% for element in attractionList %}
-                        <div style="position: absolute;
-                                top: {{ attractionPositions[loop.index0].y }}%;
-                                left: {{ attractionPositions[loop.index0].x }}%">
+                        <div class=""
+                                style="position: absolute;
+                                top: {{ element.percentageY }}%; left: {{ element.percentageX }}%">
                             <img src="{{ element.imageUrl }}"
                                 alt="{{ element.name }}, {{ element.shortDescription }}"
                                 title="{{ element.name }}, {{ element.shortDescription }}"
@@ -36,13 +35,9 @@
 
             </div>
 
-            <div class="col-12 col-lg-2">
+            <div class="col-12 col-lg-1">
                 test
             </div>
-        </div>
-
-        <div class="col-12 text-center">
-            <p>footer</p>
         </div>
 
     </div>
