@@ -23,9 +23,6 @@
     height: var(--dim);
 }
 
-
 .mapAsBackground {
 background-image: url('/images/mapBackground.png');
 }
-
-
