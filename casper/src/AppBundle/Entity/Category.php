@@ -29,6 +29,13 @@ class Category
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
      * @ORM\OneToMany(targetEntity="Attraction", mappedBy="category")
      */
     private $attractionList;

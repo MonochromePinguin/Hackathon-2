@@ -31,9 +31,23 @@ class Attraction
     /**
      * @var string
      *
+     * @ORM\Column(name="shortDescription", type="string", length=255)
+     */
+    private $shortDescription;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageUrl", type="string", length=255)
+     */
+    private $imageURL;
 
     /**
      * @var Category
@@ -134,6 +148,8 @@ class Attraction
         return $this->name;
     }
 
+
+
     /**
      * Set description.
      *
@@ -158,6 +174,37 @@ class Attraction
         return $this->description;
     }
 
+    /**
+     * @return string
+     */
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @param string $shortDescription
+     */
+    public function setShortDescription(string $shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageURL(): string
+    {
+        return $this->imageURL;
+    }
+
+    /**
+     * @param string $imageURL
+     */
+    public function setImageURL(string $imageURL)
+    {
+        $this->imageURL = $imageURL;
+    }
 
     /**
      * Set latitude.
