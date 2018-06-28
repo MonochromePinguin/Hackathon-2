@@ -50,8 +50,7 @@ class Advantage
     private $description;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Attraction")
-    * @ORM\JoinTable(name="linkAdvantageToAttraction",
+    * @ORM\ManyToMany(targetEntity="Attraction")* @ORM\JoinTable(name="linkAdvantageToAttraction",
     *       joinColumns={
     *          @ORM\JoinColumn(name="attractionId", referencedColumnName="id", unique=true)
     *      },

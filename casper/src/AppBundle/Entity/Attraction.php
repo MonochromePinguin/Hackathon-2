@@ -74,36 +74,37 @@ class Attraction
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="meanWaitTime", type="datetime", nullable=true)
+     * @ORM\Column(name="meanWaitTime", type="integer", nullable=true)
      */
     private $meanWaitTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="meanDuration", type="datetime", nullable=true)
+     * @ORM\Column(name="meanDuration", type="integer", nullable=true)
      */
     private $meanDuration;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opertureTime", type="datetime")
+     * @ORM\Column(name="opertureTime", type="integer")
      */
     private $opertureTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="closingTime", type="datetime")
+     * @ORM\Column(name="closingTime", type="integer")
      */
     private $closingTime;
 
 
+    
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -111,7 +112,7 @@ class Attraction
     }
 
     /**
-     * Set name.
+     * Set name
      *
      * @param string $name
      *
@@ -125,7 +126,7 @@ class Attraction
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
@@ -135,7 +136,7 @@ class Attraction
     }
 
     /**
-     * Set description.
+     * Set description
      *
      * @param string $description
      *
@@ -149,7 +150,7 @@ class Attraction
     }
 
     /**
-     * Get description.
+     * Get description
      *
      * @return string
      */
@@ -158,9 +159,32 @@ class Attraction
         return $this->description;
     }
 
+    /**
+     * Set category
+     *
+     * @param integer $category
+     *
+     * @return Attraction
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 
     /**
-     * Set latitude.
+     * Get category
+     *
+     * @return integer
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set latitude
      *
      * @param float $latitude
      *
@@ -174,7 +198,7 @@ class Attraction
     }
 
     /**
-     * Get latitude.
+     * Get latitude
      *
      * @return float
      */
@@ -184,7 +208,7 @@ class Attraction
     }
 
     /**
-     * Set longitude.
+     * Set longitude
      *
      * @param float $longitude
      *
@@ -198,7 +222,7 @@ class Attraction
     }
 
     /**
-     * Get longitude.
+     * Get longitude
      *
      * @return float
      */
@@ -208,13 +232,13 @@ class Attraction
     }
 
     /**
-     * Set minUserSize.
+     * Set minUserSize
      *
-     * @param float|null $minUserSize
+     * @param float $minUserSize
      *
      * @return Attraction
      */
-    public function setMinUserSize($minUserSize = null)
+    public function setMinUserSize($minUserSize)
     {
         $this->minUserSize = $minUserSize;
 
@@ -222,9 +246,9 @@ class Attraction
     }
 
     /**
-     * Get minUserSize.
+     * Get minUserSize
      *
-     * @return float|null
+     * @return float
      */
     public function getMinUserSize()
     {
@@ -232,13 +256,13 @@ class Attraction
     }
 
     /**
-     * Set minRequiredAge.
+     * Set minRequiredAge
      *
-     * @param int|null $minRequiredAge
+     * @param integer $minRequiredAge
      *
      * @return Attraction
      */
-    public function setMinRequiredAge($minRequiredAge = null)
+    public function setMinRequiredAge($minRequiredAge)
     {
         $this->minRequiredAge = $minRequiredAge;
 
@@ -246,9 +270,9 @@ class Attraction
     }
 
     /**
-     * Get minRequiredAge.
+     * Get minRequiredAge
      *
-     * @return int|null
+     * @return integer
      */
     public function getMinRequiredAge()
     {
@@ -256,13 +280,13 @@ class Attraction
     }
 
     /**
-     * Set meanWaitTime.
+     * Set meanWaitTime
      *
-     * @param \DateTime|null $meanWaitTime
+     * @param integer $meanWaitTime
      *
      * @return Attraction
      */
-    public function setMeanWaitTime($meanWaitTime = null)
+    public function setMeanWaitTime($meanWaitTime)
     {
         $this->meanWaitTime = $meanWaitTime;
 
@@ -270,9 +294,9 @@ class Attraction
     }
 
     /**
-     * Get meanWaitTime.
+     * Get meanWaitTime
      *
-     * @return \DateTime|null
+     * @return integer
      */
     public function getMeanWaitTime()
     {
@@ -280,9 +304,9 @@ class Attraction
     }
 
     /**
-     * Set meanDuration.
+     * Set meanDuration
      *
-     * @param \DateTime $meanDuration
+     * @param integer $meanDuration
      *
      * @return Attraction
      */
@@ -294,9 +318,9 @@ class Attraction
     }
 
     /**
-     * Get meanDuration.
+     * Get meanDuration
      *
-     * @return \DateTime
+     * @return integer
      */
     public function getMeanDuration()
     {
@@ -304,9 +328,9 @@ class Attraction
     }
 
     /**
-     * Set opertureTime.
+     * Set opertureTime
      *
-     * @param \DateTime $opertureTime
+     * @param integer $opertureTime
      *
      * @return Attraction
      */
@@ -318,9 +342,9 @@ class Attraction
     }
 
     /**
-     * Get opertureTime.
+     * Get opertureTime
      *
-     * @return \DateTime
+     * @return integer
      */
     public function getOpertureTime()
     {
@@ -328,9 +352,9 @@ class Attraction
     }
 
     /**
-     * Set closingTime.
+     * Set closingTime
      *
-     * @param \DateTime $closingTime
+     * @param integer $closingTime
      *
      * @return Attraction
      */
@@ -342,36 +366,12 @@ class Attraction
     }
 
     /**
-     * Get closingTime.
+     * Get closingTime
      *
-     * @return \DateTime
+     * @return integer
      */
     public function getClosingTime()
     {
         return $this->closingTime;
-    }
-
-    /**
-     * Set category.
-     *
-     * @param int $category
-     *
-     * @return Attraction
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category.
-     *
-     * @return int
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 }
