@@ -25,7 +25,7 @@ class AttractionPageController extends Controller
 {
     $em = $this->getDoctrine()->getManager();
 
-    $attractions = $em->getRepository('AppBundle:User')->findAll();
+    $attractions = $em->getRepository('AppBundle:Attraction')->findAll();
 
     return $this->render('attraction/index.html.twig', array(
         'attractions' => $attractions,
