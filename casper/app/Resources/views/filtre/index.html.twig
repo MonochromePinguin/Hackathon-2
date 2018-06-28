@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/filtre.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">bienvenue !</h1>
+    <div id="fenetre">
+        <p class="text-center">What is your quest ?</p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" aria-label="Radio button for following text input">
+                </div>
+            </div>
+            <p>Famille</p>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" aria-label="Radio button for following text input">
+                </div>
+            </div>
+            <p>Groupe d'amis</p>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" aria-label="Radio button for following text input">
+                </div>
+            </div>
+            <p>Enfants</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

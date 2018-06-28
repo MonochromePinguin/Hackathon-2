@@ -1,6 +1,38 @@
 body {
 
-    background-image: url("");
+    background-image: url("/images/fond6.jpeg");
+    font-family: 'Marmelad', sans-serif;
+    color: white;
 
 
 }
+
+
+p {
+
+   font-family:'Marmelad', sans-serif;
+   font-size: 25px;
+    color: red;
+
+}
+
+
+h1 {
+
+    font-size: 80px;
+    margin-top: 50px;
+    font-family: 'Eater', cursive;
+
+}
+
+#fenetre {
+
+    height: 250px;
+    width: 300px;
+    margin-top: 180px;
+    margin-left: 50px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+}
+
