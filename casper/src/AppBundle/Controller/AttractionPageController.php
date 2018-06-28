@@ -18,7 +18,7 @@ class AttractionPageController extends Controller
     /**
      * Lists all attractions entities.
      *
-     * @Route("/", name="attraction_page")
+     * @Route("/attraction", name="attraction_page")
      * @Method("GET")
      */
     public function indexAction()
