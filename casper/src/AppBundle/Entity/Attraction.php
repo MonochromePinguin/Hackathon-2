@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Attraction
  *
  * @ORM\Table(name="attraction")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AttractionRepository")
+ * @ORM\Entity()
  */
 class Attraction
 {
@@ -56,6 +56,12 @@ class Attraction
      * @ORM\ManyToOne(targetEntity="Category",inversedBy="attractionList")
      */
     private $category;
+
+    /**
+     * @var sensation
+     * @ORM\Column(name="sensation", type="text", length=255)
+     */
+    private $sensation;
 
     /**
      * @var float

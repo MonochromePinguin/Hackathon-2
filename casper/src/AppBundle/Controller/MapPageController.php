@@ -14,6 +14,8 @@ class MapPageController extends Controller
     private $position;
 
     const ALLOWED_CRITERIAS = [
+        'category',
+        'sensation',
         'minUserSize',
         'minRequiredAge',
         'meanWaitTime',
@@ -40,17 +42,14 @@ class MapPageController extends Controller
             $requestedCriterias = $request->request->all();
 
             foreach ($requestedCriterias as $key => $value) {
-                if (!isset(self::ALLOWED_CRITERIAS[$key])) {
+                if (!in_array($key, self::ALLOWED_CRITERIAS)) {
                     # no criteria asked when there is something wrong
                     $requestedCriterias = [];
                 }
             }
         }
 
-  /*      _ ajouter le passage de params à l'activation par Js DU LIEN :'
-    des input hidden dans un formulaire hidden ...
-
-        _ puis y réagir ici ...
+  /*    _ puis y réagir ici ...
 
         _ pour chaque champs triable numérique ou date:
             une case à cocher « inclure ou non le champs dans la sélection »
@@ -74,21 +73,26 @@ class MapPageController extends Controller
         $criterias = new Criteria();
         $expr = $criterias->expr();
 
+$debug = [];
+
         foreach ($requestedCriterias as $key => $value) {
+$debug[] = $key;
             $criterias->where($expr->eq($key, $value));
         }
         $selectedAttractions = $repo->matching($criterias);
         $highlightedId = [];
 
         if (0 != count($selectedAttractions)) {
-            foreach ($selectedAttractions as $attraction)
-            $highlightedId[] = $attraction->getId();
+            foreach ($selectedAttractions as $attraction) {
+                $highlightedId[] = $attraction->getId();
+            }
         }
 
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
             'highlightedId' => $highlightedId,
-            'viewerPos' => $this->position
+            'viewerPos' => $this->position,
+            'debug' => $requestedCriterias
         ]);
     }
 }

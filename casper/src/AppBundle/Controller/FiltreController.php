@@ -74,14 +74,14 @@ class FiltreController extends Controller
     public function __construct()
     {
         self::$stateList['categoryChoosing'] = [
-            'question' => 'What is your Quest ... ?',
+            'question' => 'Qui êtes vous ... ?',
             'choosing' => 'category',
             'choiceList' => self::CATEGORY_CHOOSING,
             'nextState' => 'sensationChoosing'
         ];
 
         self::$stateList['sensationChoosing'] = [
-            'question' => 'And what Kind of thrill are you looking for ... ?',
+            'question' => 'Et que cherchez-vous ... ?',
             'choosing' => 'sensation',
             'choiceList' => self::SENSATION_CHOOSING,
             'nextState' => 'GO'
@@ -90,7 +90,7 @@ class FiltreController extends Controller
 
 
     /**
-     * @Route("/filtre", name="filtre")
+     * @Route("/filtre", name="page_filtre")
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
