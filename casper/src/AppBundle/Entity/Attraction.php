@@ -58,10 +58,12 @@ class Attraction
     private $category;
 
     /**
-     * @var sensation
-     * @ORM\Column(name="sensation", type="text", length=255)
+     * @var Audience
+     *
+     * @ORM\Column(name="audienceId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Audience",inversedBy="attractionList")
      */
-    private $sensation;
+    private $audience;
 
     /**
      * @var float
@@ -362,6 +364,22 @@ class Attraction
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * @return Audience
+     */
+    public function getAudience()
+    {
+        return $this->audience;
+    }
+
+    /**
+     * @param Audience $audience
+     */
+    public function setAudience($audience)
+    {
+        $this->audience = $audience;
     }
 
     /**
