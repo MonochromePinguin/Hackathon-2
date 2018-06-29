@@ -1,12 +1,4 @@
 /* define the dimensions of the map so that it is of constant ratio */
-
-body {
-    background-color: #4e555b;
-}
-
-
-
-
 @media ( max-aspect-ratio: 1/1 ) {
     :root {
         --dim: 80vw;
@@ -38,17 +30,4 @@ body {
 .mapAsBackground {
     background: url('/images/mapBackground.png') no-repeat;
     background-size: cover;
-}
-
-img {
-    margin-top: 770px;
-}
-
-.bebete {
-    margin-top: 500px;
-}
-
-h1 {
-    font-family: 'Eater', cursive;
-    font-size: 60px;
 }
