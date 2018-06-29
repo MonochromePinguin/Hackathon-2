@@ -6,15 +6,21 @@
 {% endblock %}
 
 {% block body %}
-    <a href="{{ path ('page_filtre') }}"></a> <div class="titre">
-        <h1 class="un">roller Coaster</h1>
-        <div class="barre"></div>
-        <h1 class="deux">spooky Park</h1>
-    </div>
+    <header>
+        <a href="{{ path ('page_filtre') }}"
+           title="Click here to enter!"
+           class="titre">
+            <h1 class="un">roller Coaster</h1>
+            <div class="barre"></div>
+            <h1 class="deux">spooky Park</h1>
+        </a>
+    </header>
 
     <div class="col-lg-12 text-center">
         <a href="{{ path('page_filtre') }}">
-            <button type="button" class="btn btn-dark">Welcome and Enter!</button>
+            <button type="button" class="btn btn-dark welcome-btn glow-hover">
+                Welcome and Enter!
+            </button>
         </a>
     </div>
 

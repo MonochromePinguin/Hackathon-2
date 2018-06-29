@@ -1,50 +1,67 @@
 body {
-    background-image: url("/images/fond-3.jpg");
-    background-size: cover;
+    background-image: url("/images/fondAccueil.jpg");
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: top;
+    background-repeat: no-repeat;
+    background-color: black;
+
+    width: 100vw;
+    height: 100vh;
+
+    text-align: center;
 }
 
 
-.un  {
+.titre {
+    display: inline-block;
+}
 
+.un, .deux {
     font-family: 'Eater', cursive;
-    font-size: 100px;
+    font-size: 8vh;
     color: white;
-    margin-left: 480px;
-    margin-top: 350px;
+}
 
+.un {
+    margin-top: 20vh;
 }
 
 .deux {
-
-    font-family: 'Eater', cursive;
-    font-size: 100px;
-    color: white;
-    margin-left: 570px;
-    margin-top: 50px;
-
-
+    margin-top: 1vh;
 }
 
 .barre {
-
+    margin-top: 2vh;
     height: 3px;
-    width: 800px;
+    width: 100%;
     background-color: white;
-    margin-left: 500px;
-    margin-top: 60px;
-}
-
-.titre > * {
-    transition: color 1s, background-color 1s;
 }
 
 .titre:hover > * {
     color: red;
 }
 
-.titre:hover .barre {
+.titre:hover > .barre {
     background-color: red;
 }
 
+.titre > *,
+.welcome-btn {
+    transition: color 0.5s, background-color 0.5s, box-shadow 1.5s;
+}
 
 
+.welcome-btn {
+    border-radius: 2vh;
+    font-size: 4vh;
+    font-style: italic;
+    font-family: 'Marmelad', sans-serif;
+}
+.welcome-btn:hover {
+    color: red;
+    background-color: #5a6268;
+
+    box-shadow: 1px 1px 20px red, -1px 1px 20px red,
+        1px -1px 20px red, -1px -1px 20px red;
+}
