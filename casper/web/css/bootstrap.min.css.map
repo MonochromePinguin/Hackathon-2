@@ -1,23 +1,4 @@
-
-h3{
-    text-align: center;
-    color: #ced4da;
-    background-color: #5a6268;
-}
-
-.map{
-    width: 200rem;
-}
-
 /* define the dimensions of the map so that it is of constant ratio */
-
-body {
-    background-color: #4e555b;
-}
-
-
-
-
 @media ( max-aspect-ratio: 1/1 ) {
     :root {
         --dim: 80vw;
@@ -42,25 +23,6 @@ body {
     height: var(--dim);
 }
 
-.relativeContainer {
-    position: relative;
-}
-
 .mapAsBackground {
-    background: url('/images/mapBackground.png') no-repeat;
-    background-size: cover;
+background-image: url('/images/mapBackground.png');
 }
-
-img {
-    margin-top: 770px;
-}
-
-.bebete {
-    margin-top: 500px;
-}
-
-h1 {
-    font-family: 'Eater', cursive;
-    font-size: 60px;
-}
-
