@@ -1,18 +1,9 @@
 /* define the dimensions of the map so that it is of constant ratio */
-
-body {
-    background-color: #4e555b;
-}
-
-
-
-
 @media ( max-aspect-ratio: 1/1 ) {
     :root {
         --dim: 80vw;
         --margeH: calc( (100vh - var(--dim) ) /2 );
     }
-
 }
 
 @media ( min-aspect-ratio: 1/1 ) {
@@ -20,7 +11,15 @@ body {
         --dim: 80vh;
         --margeH: 10vh;
     }
+}
 
+body {
+    background-color: #4e555b;
+}
+
+h1 {
+    font-family: 'Eater', cursive;
+    font-size: 60px;
 }
 
 .constant-ratio {
@@ -40,15 +39,16 @@ body {
     background-size: cover;
 }
 
-img {
-    margin-top: 770px;
+.smallBeast {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 
 .bebete {
-    margin-top: 500px;
-}
-
-h1 {
-    font-family: 'Eater', cursive;
-    font-size: 60px;
+    z-index: 1;
+    position: fixed;
+    top: 60vh;
+    left: 75vw;
 }
