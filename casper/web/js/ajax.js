@@ -29,3 +29,23 @@ function doAjaxRequest($feedback, $div, url, sentDatas, callback)
 }
 
 
+function goToUrlByPostMethod( url, parameters )
+{
+    var form = document.createElement('form');
+
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action', url);
+
+    for(let key in parameters) {
+        let field = document.createElement('input');
+
+        field.setAttribute('type', 'hidden');
+        field.setAttribute('name', key);
+
+        field.setAttribute('value', parameters[key]);
+        form.appendChild(field);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}

@@ -7,17 +7,22 @@ function reloadState( datas, status )
 {
     currentState = datas.newState;
 
-    if ('GO' == currentState )
-    {
-        $('#to-the-map').get(0).click();
-        //TODO: use POST with category and sensation form data set ...
-    }
-
     if ( null != datas.category )
         currentCategory = datas.category;
 
     if ( null != datas.sensation )
         currentSensation = datas.sensation;
+
+    if ('GO' == currentState )
+    {
+        goToUrlByPostMethod(
+            '/map',
+            {
+                'category': currentCategory,
+                'sensation': currentSensation
+            }
+        );
+    }
 
     $('body').css('background-image', 'url("' + datas.newBackground + '")');
     $('#fenetre').html(datas.newContent);
@@ -25,7 +30,6 @@ function reloadState( datas, status )
     $('.js-watched').change( function() {
         handleRadioBtnChoice( this );
     });
-
 }
 
 
