@@ -90,7 +90,7 @@ class FiltreController extends Controller
 
 
     /**
-     * @Route("/filtre", name="filtre")
+     * @Route("/filtre", name="page_filtre")
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
