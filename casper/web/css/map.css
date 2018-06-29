@@ -4,7 +4,6 @@
         --dim: 80vw;
         --margeH: calc( (100vh - var(--dim) ) /2 );
     }
-
 }
 
 @media ( min-aspect-ratio: 1/1 ) {
@@ -12,7 +11,15 @@
         --dim: 80vh;
         --margeH: 10vh;
     }
+}
 
+body {
+    background-color: #4e555b;
+}
+
+h1 {
+    font-family: 'Eater', cursive;
+    font-size: 60px;
 }
 
 .constant-ratio {
@@ -30,4 +37,18 @@
 .mapAsBackground {
     background: url('/images/mapBackground.png') no-repeat;
     background-size: cover;
+}
+
+.smallBeast {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.bebete {
+    z-index: 1;
+    position: fixed;
+    top: 60vh;
+    left: 75vw;
 }
