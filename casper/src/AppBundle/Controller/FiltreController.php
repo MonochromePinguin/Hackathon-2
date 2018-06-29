@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class FiltreController extends Controller
 {
     /**
-     * @Route("/filtre", name="filtre")
+     * @Route("/filtre", name="page_filtre")
      */
     public function indexAction(Request $request)
     {
