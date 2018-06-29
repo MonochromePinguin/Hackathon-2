@@ -60,20 +60,6 @@ class Attraction
     /**
      * @var float
      *
-     * @ORM\Column(name="latitude", type="float")
-     */
-    private $latitude;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="longitude", type="float")
-     */
-    private $longitude;
-
-    /**
-     * @var float
-     *
      * @ORM\Column(name="percentageX", type="float")
      */
     private $percentageX;
@@ -102,28 +88,28 @@ class Attraction
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="meanWaitTime", type="datetime", nullable=true)
+     * @ORM\Column(name="meanWaitTime", type="integer", nullable=true)
      */
     private $meanWaitTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="meanDuration", type="datetime", nullable=true)
+     * @ORM\Column(name="meanDuration", type="integer", nullable=true)
      */
     private $meanDuration;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opertureTime", type="datetime")
+     * @ORM\Column(name="opertureTime", type="integer")
      */
     private $opertureTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="closingTime", type="datetime")
+     * @ORM\Column(name="closingTime", type="integer")
      */
     private $closingTime;
 
@@ -349,102 +335,6 @@ class Attraction
     }
 
     /**
-     * Set meanWaitTime.
-     *
-     * @param \DateTime|null $meanWaitTime
-     *
-     * @return Attraction
-     */
-    public function setMeanWaitTime($meanWaitTime = null)
-    {
-        $this->meanWaitTime = $meanWaitTime;
-
-        return $this;
-    }
-
-    /**
-     * Get meanWaitTime.
-     *
-     * @return \DateTime|null
-     */
-    public function getMeanWaitTime()
-    {
-        return $this->meanWaitTime;
-    }
-
-    /**
-     * Set meanDuration.
-     *
-     * @param \DateTime $meanDuration
-     *
-     * @return Attraction
-     */
-    public function setMeanDuration($meanDuration)
-    {
-        $this->meanDuration = $meanDuration;
-
-        return $this;
-    }
-
-    /**
-     * Get meanDuration.
-     *
-     * @return \DateTime
-     */
-    public function getMeanDuration()
-    {
-        return $this->meanDuration;
-    }
-
-    /**
-     * Set opertureTime.
-     *
-     * @param \DateTime $opertureTime
-     *
-     * @return Attraction
-     */
-    public function setOpertureTime($opertureTime)
-    {
-        $this->opertureTime = $opertureTime;
-
-        return $this;
-    }
-
-    /**
-     * Get opertureTime.
-     *
-     * @return \DateTime
-     */
-    public function getOpertureTime()
-    {
-        return $this->opertureTime;
-    }
-
-    /**
-     * Set closingTime.
-     *
-     * @param \DateTime $closingTime
-     *
-     * @return Attraction
-     */
-    public function setClosingTime($closingTime)
-    {
-        $this->closingTime = $closingTime;
-
-        return $this;
-    }
-
-    /**
-     * Get closingTime.
-     *
-     * @return \DateTime
-     */
-    public function getClosingTime()
-    {
-        return $this->closingTime;
-    }
-
-    /**
      * Set category.
      *
      * @param int $category
@@ -466,5 +356,101 @@ class Attraction
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set meanWaitTime
+     *
+     * @param integer $meanWaitTime
+     *
+     * @return Attraction
+     */
+    public function setMeanWaitTime($meanWaitTime)
+    {
+        $this->meanWaitTime = $meanWaitTime;
+
+        return $this;
+    }
+
+    /**
+     * Get meanWaitTime
+     *
+     * @return integer
+     */
+    public function getMeanWaitTime()
+    {
+        return $this->meanWaitTime;
+    }
+
+    /**
+     * Set meanDuration
+     *
+     * @param integer $meanDuration
+     *
+     * @return Attraction
+     */
+    public function setMeanDuration($meanDuration)
+    {
+        $this->meanDuration = $meanDuration;
+
+        return $this;
+    }
+
+    /**
+     * Get meanDuration
+     *
+     * @return integer
+     */
+    public function getMeanDuration()
+    {
+        return $this->meanDuration;
+    }
+
+    /**
+     * Set opertureTime
+     *
+     * @param integer $opertureTime
+     *
+     * @return Attraction
+     */
+    public function setOpertureTime($opertureTime)
+    {
+        $this->opertureTime = $opertureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get opertureTime
+     *
+     * @return integer
+     */
+    public function getOpertureTime()
+    {
+        return $this->opertureTime;
+    }
+
+    /**
+     * Set closingTime
+     *
+     * @param integer $closingTime
+     *
+     * @return Attraction
+     */
+    public function setClosingTime($closingTime)
+    {
+        $this->closingTime = $closingTime;
+
+        return $this;
+    }
+
+    /**
+     * Get closingTime
+     *
+     * @return integer
+     */
+    public function getClosingTime()
+    {
+        return $this->closingTime;
     }
 }
