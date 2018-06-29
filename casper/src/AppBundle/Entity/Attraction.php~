@@ -333,6 +333,68 @@ class Attraction
     {
         return $this->minRequiredAge;
     }
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
     /**
      * Set category.
@@ -356,101 +418,5 @@ class Attraction
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * Set meanWaitTime
-     *
-     * @param integer $meanWaitTime
-     *
-     * @return Attraction
-     */
-    public function setMeanWaitTime($meanWaitTime)
-    {
-        $this->meanWaitTime = $meanWaitTime;
-
-        return $this;
-    }
-
-    /**
-     * Get meanWaitTime
-     *
-     * @return integer
-     */
-    public function getMeanWaitTime()
-    {
-        return $this->meanWaitTime;
-    }
-
-    /**
-     * Set meanDuration
-     *
-     * @param integer $meanDuration
-     *
-     * @return Attraction
-     */
-    public function setMeanDuration($meanDuration)
-    {
-        $this->meanDuration = $meanDuration;
-
-        return $this;
-    }
-
-    /**
-     * Get meanDuration
-     *
-     * @return integer
-     */
-    public function getMeanDuration()
-    {
-        return $this->meanDuration;
-    }
-
-    /**
-     * Set opertureTime
-     *
-     * @param integer $opertureTime
-     *
-     * @return Attraction
-     */
-    public function setOpertureTime($opertureTime)
-    {
-        $this->opertureTime = $opertureTime;
-
-        return $this;
-    }
-
-    /**
-     * Get opertureTime
-     *
-     * @return integer
-     */
-    public function getOpertureTime()
-    {
-        return $this->opertureTime;
-    }
-
-    /**
-     * Set closingTime
-     *
-     * @param integer $closingTime
-     *
-     * @return Attraction
-     */
-    public function setClosingTime($closingTime)
-    {
-        $this->closingTime = $closingTime;
-
-        return $this;
-    }
-
-    /**
-     * Get closingTime
-     *
-     * @return integer
-     */
-    public function getClosingTime()
-    {
-        return $this->closingTime;
     }
 }
