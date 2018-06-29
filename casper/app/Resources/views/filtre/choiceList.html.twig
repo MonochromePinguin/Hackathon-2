@@ -1,23 +1,20 @@
 <fieldset class="input-group text-primary d-flex flex-column"
-          id="choosing" name="choosing">
-    <legend>{{ question }}</legend>
+          id="choosing" name="choosing"
+>
+    <legend class="text-center">{{ question }}</legend>
 
     {% for choice in choices %}
         <div class="form-check">
             <label class="form-check-label"
-                   title="{{ choice.description }}"
-            >
-                <input type="radio" class="form-check-input js-watched"
-                       name="choosing"
+                   title="{{ choice.description }}">
+                <input type="radio" name="choosing"
+                       class="form-check-input mr-2 js-watched"
                        value="{{ choice.returnValue }}"
-                       data-choice="{{ choice.returnValue }}"
-                >
+                       data-choice="{{ choice.returnValue }}">
                 {{ choice.label }}
             </label>
         </div>
+
     {% endfor %}
 
-    <a class="btn" title="Revenir au choix précédent" href="{{ path('page_filtre') }}">
-        TODO: icône «retour en arrière»
-    </a>
 </fieldset>

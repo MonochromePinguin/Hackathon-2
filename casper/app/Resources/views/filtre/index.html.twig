@@ -4,7 +4,7 @@
     {{ parent() }}
     <link href="/css/filtre.css" rel="stylesheet">
 
-    {# ugly but functional#}
+    {# ugly but functional #}
     <style>
         body {
             background-image: url("{{ background }}");
@@ -13,27 +13,37 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-center">bienvenue !</h1>
+    <h1>bienvenue !</h1>
 
-    <div id="fenetre" class="text-primary">
-        {% include 'filtre/choiceList.html.twig' %}
-    </div>
+    <main class="flex-column">
 
-    <div class="textformat">
-        <a href="{{ path('map_page') }}">
-            <img class="bt" src="/images/bestiole.png">
-            Aller à la carte
+        <div id="question" class="text-left ml-5 mt-5 p-4">
+            {% include 'filtre/choiceList.html.twig' %}
+        </div>
+
+        <div class="mapLink">
+            <a href="{{ path('map_page') }}">
+                <img src="/images/bestiole.png">
+                <br>
+                Aller à la carte
+            </a>
+        </div>
+
+        <a class="btn btn-secondary" title="Revenir au choix précédent"
+           href="{{ path('page_filtre') }}">
+            TODO: icône «retour en arrière»
         </a>
-    </div>
+
+    </main>
+
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
+    <script src="/js/ajax.js"></script>
 
     <script>
         currentState = {{ currentState | json_encode() | raw }};
     </script>
-
-    <script src="/js/ajax.js"></script>
     <script src="/js/filterPage.js"></script>
 {% endblock %}

@@ -25,7 +25,7 @@ function reloadState( datas, status )
     }
 
     $('body').css('background-image', 'url("' + datas.newBackground + '")');
-    $('#fenetre').html(datas.newContent);
+    $('#question').html(datas.newContent);
 
     $('.js-watched').change( function() {
         handleRadioBtnChoice( this );
