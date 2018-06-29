@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/filtre.css" rel="stylesheet">
+
+    {# ugly but functional#}
+    <style>
+        body {
+            background-image: url("{{ background }}");
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">bienvenue !</h1>
+
+    <div id="fenetre" class="text-primary">
+        {% include 'filtre/choiceList.html.twig' %}
+    </div>
+
+    <div>
+        <a href="{{ path('map_page') }}" title="TODO" id="to-the-map">
+            styler cette cochonnerie de bouton !
+        </a>
+    </div>
+    <img class="bb" src="/images/entassement.png">
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script>
+        currentState = {{ currentState | json_encode() | raw }};
+    </script>
+
+    <script src="/js/main.js"></script>
+{% endblock %}

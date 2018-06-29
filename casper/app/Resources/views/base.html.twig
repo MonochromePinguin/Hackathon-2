@@ -3,13 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta lang="fr">
-        <title>{% block title %}Naviguer dans le parc{% endblock %}</title>
+        <title>{% block title %}Spooky Park{% endblock %}</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/bootstrap4.1.1.min.css') }}">
+
+            <link rel="stylesheet" href="/css/bootstrap4.1.1.min.css">
+
             <link href="https://fonts.googleapis.com/css?family=Eater" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Marmelad" rel="stylesheet">
         {% endblock %}
@@ -19,6 +21,11 @@
 
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block javascript %}
+            <script src="/js/jquery-3.3.1.min.js"></script>
+            <script src="/js/popper.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>

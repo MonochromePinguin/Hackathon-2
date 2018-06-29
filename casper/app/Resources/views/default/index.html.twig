@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/accueil.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path ('page_filtre') }}"></a> <div class="titre">
+        <h1 class="un">roller Coaster</h1>
+        <div class="barre"></div>
+        <h1 class="deux">spooky Park</h1>
+    </div>
+
+{% endblock %}

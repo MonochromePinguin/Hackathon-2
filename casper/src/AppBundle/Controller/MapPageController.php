@@ -29,8 +29,6 @@ class MapPageController extends Controller
                      ->getRepository(Attraction::class);
         $attractions = $repo->findAll();
 
-
-
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
             'viewerPos' => $this->position
