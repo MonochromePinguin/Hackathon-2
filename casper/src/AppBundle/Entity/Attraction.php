@@ -72,6 +72,20 @@ class Attraction
     private $longitude;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="percentageX", type="float")
+     */
+    private $percentageX;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="percentageY", type="float")
+     */
+    private $percentageY;
+
+    /**
      * @var float|null
      *
      * @ORM\Column(name="minUserSize", type="float", nullable=true)
@@ -218,6 +232,38 @@ class Attraction
         $this->latitude = $latitude;
 
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPercentageX()
+    {
+        return $this->percentageX;
+    }
+
+    /**
+     * @param float $percentageX
+     */
+    public function setPercentageX($percentageX)
+    {
+        $this->percentageX = $percentageX;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPercentageY()
+    {
+        return $this->percentageY;
+    }
+
+    /**
+     * @param float $percentageY
+     */
+    public function setPercentageY($percentageY)
+    {
+        $this->percentageY = $percentageY;
     }
 
     /**
