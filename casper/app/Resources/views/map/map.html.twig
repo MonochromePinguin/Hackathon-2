@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>The Map</h1>
+                debug : {{ debug | join(', ') }}
             </div>
         </div>
 
@@ -51,4 +52,10 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="/css/map.css">
+{% endblock %}
+
+{% block javascript %}
+    {{  parent() }}
+    <script src="/js/ajax.js"></script>
+    <script src="/js/mapPage.js"></script>
 {% endblock %}

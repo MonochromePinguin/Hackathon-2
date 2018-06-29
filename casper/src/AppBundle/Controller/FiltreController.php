@@ -74,14 +74,14 @@ class FiltreController extends Controller
     public function __construct()
     {
         self::$stateList['categoryChoosing'] = [
-            'question' => 'What is your Quest ... ?',
+            'question' => 'Qui êtes vous ... ?',
             'choosing' => 'category',
             'choiceList' => self::CATEGORY_CHOOSING,
             'nextState' => 'sensationChoosing'
         ];
 
         self::$stateList['sensationChoosing'] = [
-            'question' => 'And what Kind of thrill are you looking for ... ?',
+            'question' => 'Et que cherchez-vous ... ?',
             'choosing' => 'sensation',
             'choiceList' => self::SENSATION_CHOOSING,
             'nextState' => 'GO'
@@ -98,6 +98,7 @@ class FiltreController extends Controller
         $state = 'categoryChoosing';
         $category = 'unchoosen';
 
+        #TODO: to be clean, this should be an URI apart
         #if we receive a marker in the POST request, it's ajax !
         if ($request->isMethod('post')
             && ('1' == $request->request->get('ajaxFlag'))
