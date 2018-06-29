@@ -64,9 +64,9 @@ class FiltreController extends Controller
     private static $stateList = [];
 
     const CATEGORY_BACKGROUNDS = [
-        'unchoosen' => '/images/fond.jpg',
+        'unchoosen' => '/images/fond6.jpeg',
         'strong' => '/images/strong.jpg',
-        'friends' => '/images/friends.jpg',
+        'friends' => '/images/fond-3.jpg',
         'family' => '/images/joker.jpg',
         'children' => '/images/fond6.jpeg'
     ];

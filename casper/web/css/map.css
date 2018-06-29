@@ -52,3 +52,10 @@ h1 {
     top: 60vh;
     left: 75vw;
 }
+
+
+.attractionIcon {
+    max-width: 10vw;
+    max-height: 10vh;
+}
+

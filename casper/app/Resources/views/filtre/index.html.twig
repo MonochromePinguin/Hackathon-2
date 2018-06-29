@@ -19,12 +19,12 @@
         {% include 'filtre/choiceList.html.twig' %}
     </div>
 
-    <div>
-        <a href="{{ path('map_page') }}" title="TODO" id="to-the-map">
-            styler cette cochonnerie de bouton !
+    <div class="textformat">
+        <a href="{{ path('map_page') }}">
+            <img class="bt" src="/images/bestiole.png">
+            Aller à la carte
         </a>
     </div>
-    <img class="bb" src="/images/entassement.png">
 {% endblock %}
 
 {% block javascript %}

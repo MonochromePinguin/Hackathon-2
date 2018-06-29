@@ -27,10 +27,10 @@
                     </div>
 
                     {% for element in attractionList %}
-                        <div class=""
-                                style="position: absolute;
-                                top: {{ element.percentageY }}%; left: {{ element.percentageX }}%">
-                            <img src="{{ element.imageUrl }}"
+                        <div style="position: absolute;
+                                top: {{ element.percentageY }}%; left: {{ element.percentageX }}%"
+                                title="{{ element.shortDescription }}">
+                            <img src="{{ element.imageUrl }}" class="attractionIcon"
                                 alt="{{ element.name }}, {{ element.shortDescription }}"
                                 title="{{ element.name }}, {{ element.shortDescription }}"
                             >
