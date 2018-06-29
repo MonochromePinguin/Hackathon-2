@@ -3,39 +3,36 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/css/filtre.css" rel="stylesheet">
+
+    {# ugly but functional#}
+    <style>
+        body {
+            background-image: url("{{ background }}");
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
     <h1 class="text-center">bienvenue !</h1>
-    <div id="fenetre">
-        <p class="text-center">What is your quest ?</p>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="radio" aria-label="Radio button for following text input">
-                </div>
-            </div>
-            <p>Famille</p>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="radio" aria-label="Radio button for following text input">
-                </div>
-            </div>
-            <p>Groupe d'amis</p>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="radio" aria-label="Radio button for following text input">
-                </div>
-            </div>
-            <p>Enfants</p>
-        </div>
+
+    <div id="fenetre" class="text-primary">
+        {% include 'filtre/choiceList.html.twig' %}
+    </div>
+
+    <div>
+        <a href="{{ path('map_page') }}" title="TODO" id="to-the-map">
+            styler cette cochonnerie de bouton !
+        </a>
     </div>
     <img class="bb" src="/images/entassement.png">
 {% endblock %}
 
-{% block javascripts %}
+{% block javascript %}
+    {{ parent() }}
+
+    <script>
+        currentState = {{ currentState | json_encode() | raw }};
+    </script>
+
+    <script src="/js/main.js"></script>
 {% endblock %}

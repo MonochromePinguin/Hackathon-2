@@ -1,54 +1,92 @@
+currentCategory = null;
+currentSensation = null;
 
 
-
-
-function doAjaxRequest($div, sentDatas, callback)
+//TODO: replace it with a TRUE error-showing function
+function showErrorMsg( msg )
 {
-    $feedback.css( 'display', 'block' );
-    $div.css( 'hide' );
+    console.log(msg);
+}
 
-    $.post( '/ajaxHandler.php', sentDatas )
-        .done( callback )
 
-        .fail( function( jqXHR, textStatus, status ){
-            showErrorMsg(
-                'Échec de communication avec le serveur : erreur ' +
-                jqXHR.status + ' « ' + status + '»'
-            );
+function doAjaxRequest($feedback, $div, url, sentDatas, callback)
+{
+    if ( null != $feedback )
+        $feedback.css( 'display', 'block' );
+    if ( null != $div )
+        $div.css( 'hide' );
 
-        } ).always( function() {
-        $feedback.css( 'display', 'none' );
+    $.post( url, sentDatas )
+     .done( callback )
+
+     .fail( function( jqXHR, textStatus, status ){
+         showErrorMsg(
+             'Erreur de communication avec le serveur : ' +
+             jqXHR.status + ' « ' + status + '»'
+         );
+     } )
+
+     .always( function() {
+        if ( null != $feedback )
+            $feedback.css( 'display', 'none' );
     } );
 }
 
 
-doAjaxRequest( $renameModal, {
-    action: 'rename',
-    'target-path': targetPath,
-    'new-name': newName,
-//TODO: aren't these parameters factorisables directly into doAjaxRequest()
-// instead of being rewritten every call of this function?
-    'parent-prefix': parentPrefix != null ?
-        parentPrefix + '&nbsp;&nbsp;' : '',
-→ si le parent n'est pas dernier, ajouter │&nbsp; à la place ... Mais il faut d'abord
-résoudre ce problème de tri inversé ds l'appel du generator !
-'show-hidden': commonFlags.showHidden,
-    'sort-by': commonFlags.sortBy,
-    'inverted-list': commonFlags.invertedList
-},
-function( datas, status ) {
-    if ( 0 == datas.status ) {
-        if ( datas.changedPath != '/' ) {
-            siblingPathSelector =
-                '[data-path^="' + datas.changedPath + '/"]';
+function reloadState( datas, status )
+{
+    currentState = datas.newState;
 
-            //if changedPath refers to a directory, delete all child
-//TODO: now it is always the case – we always reload the
-// whole dir; but it could change one day...
-            $dataContainer.find( siblingPathSelector )
-                .remove();
-            //and replace it with the new html content
-            $dataContainer.find( '[data-path="' + datas.changedPath + '"]' )
-                .after( datas.newContent );
+    if ('GO' == currentState )
+    {
+        $('#to-the-map').get(0).click();
+    }
 
-        } else {
+    if ( null != datas.category )
+        currentCategory = datas.category;
+
+    if ( null != datas.sensation )
+        currentSensation = datas.sensation;
+
+    $('body').css('background-image', 'url("' + datas.newBackground + '")');
+    $('#fenetre').html(datas.newContent);
+
+    $('.js-watched').change( function() {
+        handleRadioBtnChoice( this );
+    });
+
+}
+
+
+function handleRadioBtnChoice(element) {
+    if ($(element).is(':checked'))
+    {
+        let request = {
+            'ajaxFlag': 1,
+            'currentState': currentState,
+            'choosen': element.dataset.choice
+        };
+
+        if ( null != currentCategory )
+            request.category = currentCategory;
+        if ( null != currentSensation )
+            request.sensation = currentSensation;
+
+        doAjaxRequest(
+            null,null,
+            '/filtre',
+            request,
+            reloadState
+        );
+    }
+}
+
+
+$(document).ready( function() {
+
+    $('.js-watched').change( function() {
+        handleRadioBtnChoice( this );
+    });
+
+}
+);

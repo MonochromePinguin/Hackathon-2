@@ -31,26 +31,24 @@ body {
     height: var(--dim);
 }
 
+.relativeContainer {
+    position: relative;
+}
 
 .mapAsBackground {
-background-image: url('/images/mapBackground.png');
+    background: url('/images/mapBackground.png') no-repeat;
+    background-size: cover;
 }
 
 img {
-
     margin-top: 770px;
 }
 
 .bebete {
-
     margin-top: 500px;
-
 }
 
 h1 {
-
     font-family: 'Eater', cursive;
     font-size: 60px;
 }
-
-

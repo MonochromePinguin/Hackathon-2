@@ -30,8 +30,8 @@ class MapPageController extends Controller
         $attractions = $repo->findAll();
 
         return $this->render('map/map.html.twig', [
-            'tiles' => $attractions,
-            'pos' => $this->position
+            'attractionList' => $attractions,
+            'viewerPos' => $this->position
         ]);
     }
 }
