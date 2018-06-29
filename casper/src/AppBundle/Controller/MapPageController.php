@@ -19,11 +19,20 @@ class MapPageController extends Controller
 
     /**
      * @Route("/map", name="map_page")
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
 //TODO: factoriser la vue twig (un include) à montrer en diverses pages !
     public function mapPageAction()
     {
+        #if we receive a marker in the POST request, it's ajax !
+        if ($request->isMethod('post')
+            && ('1' == $request->request->get('ajaxFlag'))
+        ) {
+            //todo
+        }
+
+
+
         $repo = $this->getDoctrine()
                      ->getManager()
                      ->getRepository(Attraction::class);

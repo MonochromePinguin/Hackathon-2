@@ -1,36 +1,6 @@
+//GLOBAL VARIABLES ARE EVILS. BUT WE'RE IN HACKATHON...
 currentCategory = null;
 currentSensation = null;
-
-
-//TODO: replace it with a TRUE error-showing function
-function showErrorMsg( msg )
-{
-    console.log(msg);
-}
-
-
-function doAjaxRequest($feedback, $div, url, sentDatas, callback)
-{
-    if ( null != $feedback )
-        $feedback.css( 'display', 'block' );
-    if ( null != $div )
-        $div.css( 'hide' );
-
-    $.post( url, sentDatas )
-     .done( callback )
-
-     .fail( function( jqXHR, textStatus, status ){
-         showErrorMsg(
-             'Erreur de communication avec le serveur : ' +
-             jqXHR.status + ' « ' + status + '»'
-         );
-     } )
-
-     .always( function() {
-        if ( null != $feedback )
-            $feedback.css( 'display', 'none' );
-    } );
-}
 
 
 function reloadState( datas, status )
@@ -40,6 +10,7 @@ function reloadState( datas, status )
     if ('GO' == currentState )
     {
         $('#to-the-map').get(0).click();
+        //TODO: use POST with category and sensation form data set ...
     }
 
     if ( null != datas.category )
@@ -80,7 +51,6 @@ function handleRadioBtnChoice(element) {
         );
     }
 }
-
 
 $(document).ready( function() {
 
