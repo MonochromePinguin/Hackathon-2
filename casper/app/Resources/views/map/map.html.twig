@@ -1,23 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="map"  ></div>
+
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-12 text-center">
-                &lg;Titre ici&gt;
+
+
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-10 text-centered">
-
+            <div class="col-12 col-lg-9 ">
+                <img src="https://i.pinimg.com/originals/a9/5f/aa/a95faacbd9c5d2cae5071a43241443a9.jpg" width="100%" height=100%" alt="">
                 <div class="mapAsBackground constant-ratio" id="map">
                     {# for now, parameters in yml cannot be associative arrays,
                         so we were obliged to use an indexed one #}
                     <div style="position: absolute; top: {{ viewerPos[1] }}%; left: {{ viewerPos[0] }}%"
                         title="You are here!">
-                        X
+
                     </div>
 
                     {# list of attractions and other things to show #}
@@ -34,13 +37,13 @@
 
             </div>
 
-            <div class="col-12 col-lg-2">
-                test
+            <div class="col-12 col-lg-3">
+                {% include 'selectPanel.html.twig' %}
             </div>
         </div>
 
         <div class="col-12 text-center">
-            <p>footer</p>
+
         </div>
 
     </div>
