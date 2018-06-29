@@ -77,12 +77,17 @@ class MapPageController extends Controller
         foreach ($requestedCriterias as $key => $value) {
             $criterias->where($expr->eq($key, $value));
         }
-        $highlights = $repo->matching($criterias);
+        $selectedAttractions = $repo->matching($criterias);
+        $highlightedId = [];
 
+        if (0 != count($selectedAttractions)) {
+            foreach ($selectedAttractions as $attraction)
+            $highlightedId[] = $attraction->getId();
+        }
 
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
-        #    'highlightedId' => $highlights,
+            'highlightedId' => $highlightedId,
             'viewerPos' => $this->position
         ]);
     }
