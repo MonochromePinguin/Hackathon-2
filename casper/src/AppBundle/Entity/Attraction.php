@@ -96,30 +96,44 @@ class Attraction
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="meanWaitTime", type="integer", nullable=true)
+     * @ORM\Column(name="meanWaitTime", type="time", nullable=true)
      */
     private $meanWaitTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="meanDuration", type="integer", nullable=true)
+     * @ORM\Column(name="meanDuration", type="time", nullable=true)
      */
     private $meanDuration;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opertureTime", type="integer")
+     * @ORM\Column(name="opertureTime", type="time")
      */
     private $opertureTime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="closingTime", type="integer")
+     * @ORM\Column(name="closingTime", type="time")
      */
     private $closingTime;
+
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="priceAdult", type="integer")
+     */
+    private $priceAdult;
+
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="priceChild", type="integer")
+     */
+    private $priceChild;
 
 
     /**
@@ -155,7 +169,6 @@ class Attraction
     {
         return $this->name;
     }
-
 
 
     /**
@@ -383,98 +396,98 @@ class Attraction
     }
 
     /**
-     * Set meanWaitTime
-     *
-     * @param integer $meanWaitTime
-     *
-     * @return Attraction
+     * @return \DateTime|null
      */
-    public function setMeanWaitTime($meanWaitTime)
-    {
-        $this->meanWaitTime = $meanWaitTime;
-
-        return $this;
-    }
-
-    /**
-     * Get meanWaitTime
-     *
-     * @return integer
-     */
-    public function getMeanWaitTime()
+    public function getMeanWaitTime(): \DateTime
     {
         return $this->meanWaitTime;
     }
 
     /**
-     * Set meanDuration
-     *
-     * @param integer $meanDuration
-     *
-     * @return Attraction
+     * @param \DateTime|null $meanWaitTime
      */
-    public function setMeanDuration($meanDuration)
+    public function setMeanWaitTime(\DateTime $meanWaitTime)
     {
-        $this->meanDuration = $meanDuration;
-
-        return $this;
+        $this->meanWaitTime = $meanWaitTime;
     }
 
     /**
-     * Get meanDuration
-     *
-     * @return integer
+     * @return \DateTime
      */
-    public function getMeanDuration()
+    public function getMeanDuration(): \DateTime
     {
         return $this->meanDuration;
     }
 
     /**
-     * Set opertureTime
-     *
-     * @param integer $opertureTime
-     *
-     * @return Attraction
+     * @param \DateTime $meanDuration
      */
-    public function setOpertureTime($opertureTime)
+    public function setMeanDuration(\DateTime $meanDuration)
     {
-        $this->opertureTime = $opertureTime;
-
-        return $this;
+        $this->meanDuration = $meanDuration;
     }
 
     /**
-     * Get opertureTime
-     *
-     * @return integer
+     * @return \DateTime
      */
-    public function getOpertureTime()
+    public function getOpertureTime(): \DateTime
     {
         return $this->opertureTime;
     }
 
     /**
-     * Set closingTime
-     *
-     * @param integer $closingTime
-     *
-     * @return Attraction
+     * @param \DateTime $opertureTime
      */
-    public function setClosingTime($closingTime)
+    public function setOpertureTime(\DateTime $opertureTime)
     {
-        $this->closingTime = $closingTime;
-
-        return $this;
+        $this->opertureTime = $opertureTime;
     }
 
     /**
-     * Get closingTime
-     *
-     * @return integer
+     * @return \DateTime
      */
-    public function getClosingTime()
+    public function getClosingTime(): \DateTime
     {
         return $this->closingTime;
+    }
+
+    /**
+     * @param \DateTime $closingTime
+     */
+    public function setClosingTime(\DateTime $closingTime)
+    {
+        $this->closingTime = $closingTime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriceAdult(): int
+    {
+        return $this->priceAdult;
+    }
+
+    /**
+     * @param int $priceAdult
+     */
+    public function setPriceAdult(int $priceAdult)
+    {
+        $this->priceAdult = $priceAdult;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriceChild(): int
+    {
+        return $this->priceChild;
+    }
+
+    /**
+     * @param int $priceChild
+     */
+    public function setPriceChild(int $priceChild)
+    {
+        $this->priceChild = $priceChild;
     }
 }
