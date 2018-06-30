@@ -99,25 +99,24 @@ class FilterQueryType extends AbstractType
                 'label' => 'Durée maximale de la visite souhaitée : ',
             ]
         )
-        ->add( $builder->create(
-                'horaires',
-                FormType::class,
-                [
+        ->add($builder->create(
+            'horaires',
+            FormType::class,
+            [
                     'inherit_data' => true,
                     'label' => 'Horaires désirés : '
                     ]
-            )
+        )
             ->add(
-            'opertureTime',
-            TimeType::class,
-            ['label' => 'À partir de : ']
+                'opertureTime',
+                TimeType::class,
+                ['label' => 'À partir de : ']
             )
             ->add(
                 'closingTime',
                 TimeType::class,
                 ['label' => 'Jusqu\'à : ']
-            )
-        ) # add( $builder->create(...), ... )
+            )) # add( $builder->create(...), ... )
         ->add(
             'priceAdult',
             MoneyType::class,

@@ -57,7 +57,7 @@ class FilterQuery
     private $meanDuration;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(name="opertureTime", type="time")
      *
@@ -66,7 +66,7 @@ class FilterQuery
     private $opertureTime;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(name="closingTime", type="time")
      *
@@ -75,7 +75,7 @@ class FilterQuery
     private $closingTime;
 
     /**
-     * @var int
+     * @var int|null
      *
      * @ORM\Column(name="priceAdult", type="integer")
      *
@@ -85,7 +85,7 @@ class FilterQuery
     private $priceAdult;
 
     /**
-     * @var int
+     * @var int|null
      *
      * @ORM\Column(name="priceChild", type="integer")
      *
