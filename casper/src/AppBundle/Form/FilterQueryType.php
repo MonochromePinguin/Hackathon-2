@@ -4,11 +4,11 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Audience;
 use AppBundle\Entity\Category;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,11 +28,13 @@ class FilterQueryType extends AbstractType
         $categoryRepo = $em->getRepository(Category::class);
         $categoryList = $categoryRepo->findAll();
 
+        $intInputAttr = [ 'min' => '0' ];
+
         $builder->add(
             'audiences',
             ChoiceType::class,
             [
-                'label' => 'Audience : ',
+                'label' => 'Audience : ',
 
                 #make them checkboxes
                 'expanded' => true,
@@ -46,18 +48,13 @@ class FilterQueryType extends AbstractType
                 'choice_value' => function (Audience $audience = null) {
                     return $audience ? $audience->getName() : '';
                 },
-
-            /*               'query_builder' => function () use ($audienceRepo) {
-                    return $audienceRepo->createQueryBuilder('a')
-                              ->orderBy('a.label', 'ASC');
-                }*/
             ]
         )
         ->add(
             'categories',
             ChoiceType::class,
             [
-                'label' => 'Catégorie : ',
+                'label' => 'Catégorie : ',
 
                 'expanded' => true,
                 'multiple' => true,
@@ -72,14 +69,71 @@ class FilterQueryType extends AbstractType
                 }
             ]
         )
-        ->add('minUserSize', IntegerType::class)
-        ->add('minRequiredAge', IntegerType::class)
-        ->add('meanWaitTime', TimeType::class)
-        ->add('meanDuration', TimeType::class)
-        ->add('opertureTime', TimeType::class)
-        ->add('closingTime', TimeType::class)
-        ->add('priceAdult', IntegerType::class)
-        ->add('priceChild', IntegerType::class);
+        ->add(
+            'minUserSize',
+            IntegerType::class,
+            [
+                'label' => 'accessible à partir de telle taille (en m) : ',
+                'attr' => $intInputAttr
+            ]
+        )
+        ->add(
+            'minRequiredAge',
+            IntegerType::class,
+            [
+                'label' => 'Âge : à partir de : ',
+                'attr' => $intInputAttr
+            ]
+        )
+        ->add(
+            'meanWaitTime',
+            TimeType::class,
+            [
+                'label' => 'Temps d\'attente maximal souhaitée : ',
+            ]
+        )
+        ->add(
+            'meanDuration',
+            TimeType::class,
+            [
+                'label' => 'Durée maximale de la visite souhaitée : ',
+            ]
+        )
+        ->add( $builder->create(
+                'horaires',
+                FormType::class,
+                [
+                    'inherit_data' => true,
+                    'label' => 'Horaires désirés : '
+                    ]
+            )
+            ->add(
+            'opertureTime',
+            TimeType::class,
+            ['label' => 'À partir de : ']
+            )
+            ->add(
+                'closingTime',
+                TimeType::class,
+                ['label' => 'Jusqu\'à : ']
+            )
+        ) # add( $builder->create(...), ... )
+        ->add(
+            'priceAdult',
+            MoneyType::class,
+            [
+                'label' => 'Prix adulte maximal (à partir de 3 ans ¼) : ',
+                'currency' => 'EUR'
+            ]
+        )
+        ->add(
+            'priceChild',
+            MoneyType::class,
+            [
+                'label' => 'Prix enfant maximal (jusqu\'à 2 mois avant terme) : ',
+                'currency' => 'EUR'
+            ]
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)

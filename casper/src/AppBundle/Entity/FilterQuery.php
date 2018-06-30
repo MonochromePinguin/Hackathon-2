@@ -24,11 +24,17 @@ class FilterQuery
 
     /**
      * @var int|null
+     *
+     * @Assert\Type("integer")
+     * @Assert\Range(min=0)
      */
     private $minUserSize;
 
     /**
      * @var int|null
+     *
+     * @Assert\Type("integer")
+     * @Assert\Range(min=0)
      */
     private $minRequiredAge;
 
@@ -36,6 +42,8 @@ class FilterQuery
      * @var \DateTime|null
      *
      * @ORM\Column(name="meanWaitTime", type="time", nullable=true)
+     *
+     * @Assert\Type("DateTime")
      */
     private $meanWaitTime;
 
@@ -43,6 +51,8 @@ class FilterQuery
      * @var \DateTime|null
      *
      * @ORM\Column(name="meanDuration", type="time", nullable=true)
+     *
+     * @Assert\Type("DateTime")
      */
     private $meanDuration;
 
@@ -50,6 +60,8 @@ class FilterQuery
      * @var \DateTime
      *
      * @ORM\Column(name="opertureTime", type="time")
+     *
+     * @Assert\Type("DateTime")
      */
     private $opertureTime;
 
@@ -57,6 +69,8 @@ class FilterQuery
      * @var \DateTime
      *
      * @ORM\Column(name="closingTime", type="time")
+     *
+     * @Assert\Type("DateTime")
      */
     private $closingTime;
 
@@ -64,6 +78,9 @@ class FilterQuery
      * @var int
      *
      * @ORM\Column(name="priceAdult", type="integer")
+     *
+     * @Assert\Type("integer")
+     * @Assert\Range(min=0)
      */
     private $priceAdult;
 
@@ -71,6 +88,9 @@ class FilterQuery
      * @var int
      *
      * @ORM\Column(name="priceChild", type="integer")
+     *
+     * @Assert\Type("integer")
+     * @Assert\Range(min=0)
      */
     private $priceChild;
 

@@ -59,3 +59,22 @@ h1 {
     max-height: 10vh;
 }
 
+
+form input[type="checkbox"] {
+    margin-left: -2em;
+}
+
+.col-form-label,
+.form-control-label {
+font-weight: bold;
+font-size: 1.4em;
+}
+
+#appbundle_filterquery_horaires > fieldset.form-group > legend,
+.form-check-label {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: lightgrey;
+    font-size: 1.2em;
+}
+
