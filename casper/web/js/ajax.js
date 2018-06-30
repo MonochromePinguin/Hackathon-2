@@ -29,6 +29,8 @@ function doAjaxRequest($feedback, $div, url, sentDatas, callback)
 }
 
 
+//BEWARE : this function cannot send recursive content – "flat object" only!
+//TODO: make this function able to send arrays
 function goToUrlByPostMethod( url, parameters )
 {
     var form = document.createElement('form');

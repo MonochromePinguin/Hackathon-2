@@ -14,9 +14,12 @@ class MapPageController extends Controller
 {
     private $position;
 
-    const ALLOWED_CRITERIAS = [
+    const MULTIPLE_CRITERIAS = [
         'audience',
-        'category',
+        'category'
+    ];
+
+    const SINGLE_CRITERIAS = [
         'minUserSize',
         'minRequiredAge',
         'meanWaitTime',
@@ -40,54 +43,44 @@ class MapPageController extends Controller
 //TODO: factoriser la vue twig (un include) à montrer en diverses pages !
     public function mapPageAction(Request $request)
     {
-        $selectors = [];
+        $em = $this->getDoctrine()->getManager();
 
-        # abort selection if any requested criteria is invalid
-        if ($request->isMethod('post')) {
-            $selectors = $request->request->all();
+        $repo = $em->getRepository(Attraction::class);
+        $attractions = $repo->findAll();
 
-            foreach ($selectors as $key => $value) {
-                if (!in_array($key, self::ALLOWED_CRITERIAS)) {
-                    # no criteria asked when there is something wrong
-                    $selectors = [];
+        $highlightedId = [];
+
+        # create the filter form shown in the lateral panel
+        #
+        $query = new FilterQuery();
+        $form = $this->createForm(
+            'AppBundle\Form\FilterQueryType',
+            $query,
+            ['entityManager' => $em]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            #use these results to build the list of highlighted attractions
+            #
+            $criterias = Criteria::create();
+            $expr = Criteria::expr;
+
+            foreach (self::MULTIPLE_CRITERIAS as $key) {
+                if (isset($query[$key])) {
+                    $criterias->orWhere(
+                        $expr->eq($key, $query[$key])
+                    );
                 }
             }
 
-            /*_ ajouter les labels, les styler via bootstrap
-            _  les champs à valeur discrète (catégorie, public) sont à remplacer par des
-            groupes de case à cocher + "tout cocher" / "tout décocher" !
-            _ pr chaque critère :
-                case à cocher (utilisé ou pas ?),
-            sélecteur de logique ( ==, ≥, ≤, != , entre 2 valeurs )
-            SAUF pour les critères  stockés en table dédiée :
-             pour eux, cases à cocher !
-
-            _ pour chaque champs triable numérique ou date:
-                une case à cocher « inclure ou non le champs dans la sélection »
-                un select «opération» : =, ≥, ≤, ≠, entre 2 valeurs ;
-            _ pour les champs texte : de la recherche full texte dans les noms,
-                        description ... → icône loupe et champs de recherche
-
-            _ le JS pour jouer sur la coloration des icônes sélectionnées ou non
-
-            _effets pour l'apparition et le changement d'état des sprite;
-            _effets pour le changement de fond d''écran sur la page filtres
-            */
-            $em = $this->getDoctrine()->getManager();
-
-            $repo = $em->getRepository(Attraction::class);
-            $attractions = $repo->findAll();
-
-            #filter these results to build the list of highlighted attractions
-            #
-            $criterias = new Criteria();
-            $expr = $criterias->expr();
-
-            foreach ($selectors as $key => $value) {
-                $criterias->where($expr->eq($key, $value));
+            foreach (self::SINGLE_CRITERIAS as $key) {
+                if (isset($query[$key])) {
+                    $criterias->andWhere($expr->eq($key, $query[$key]));
+                }
             }
+
             $selectedAttractions = $repo->matching($criterias);
-            $highlightedId = [];
 
             if (0 != count($selectedAttractions)) {
                 foreach ($selectedAttractions as $attraction) {
@@ -96,25 +89,12 @@ class MapPageController extends Controller
             }
         }
 
-        # create the filter form shown in the lateral panel
-        #
-        $filterQuery = new FilterQuery();
-        $form = $this->createForm(
-            'AppBundle\Form\FilterQueryType',
-            $filterQuery,
-            ['entityManager' => $em]
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //TODO
-        }
-
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
             'highlightedId' => $highlightedId,
             'viewerPos' => $this->position,
-            'filterQuery' => $filterQuery,
+
+            'filterQuery' => $query,
             'filterQuery_form' => $form->createView()
         ]);
     }

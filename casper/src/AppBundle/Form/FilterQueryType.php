@@ -146,8 +146,9 @@ class FilterQueryType extends AbstractType
         $resolver->setRequired('entityManager');
     }
 
+
     public function getBlockPrefix()
     {
-        return 'appbundle_filterquery';
+        return 'filterquery';
     }
 }

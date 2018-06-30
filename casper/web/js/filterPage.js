@@ -18,8 +18,10 @@ function reloadState( datas, status )
         goToUrlByPostMethod(
             '/map',
             {
-                'category': currentCategory,
-                'audience': currentAudience
+// THIS IS **UGLY** SIMULATION OF POST DATA!
+//TODO: make this workaround unnecessary by reworking goToUrlByPostMethod()
+                'filterquery[audiences][0]': currentAudience,
+                'filterquery[categories][0]': currentCategory
             }
         );
     }
