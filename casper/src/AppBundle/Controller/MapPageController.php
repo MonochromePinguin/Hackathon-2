@@ -14,6 +14,7 @@ class MapPageController extends Controller
 {
     private $position;
 
+    # all fields of the Attraction entity we can use as criteria
     const MULTIPLE_CRITERIAS = [
         'audience',
         'category'
@@ -64,19 +65,19 @@ class MapPageController extends Controller
             #use these results to build the list of highlighted attractions
             #
             $criterias = Criteria::create();
-            $expr = Criteria::expr;
+            $expr = Criteria::expr();
 
-            foreach (self::MULTIPLE_CRITERIAS as $key) {
-                if (isset($query[$key])) {
+            foreach (self::MULTIPLE_CRITERIAS as $key ) {
+                if (isset($query->$key)) {
                     $criterias->orWhere(
-                        $expr->eq($key, $query[$key])
+                        $expr->eq($key, $query->$key)
                     );
                 }
             }
 
             foreach (self::SINGLE_CRITERIAS as $key) {
-                if (isset($query[$key])) {
-                    $criterias->andWhere($expr->eq($key, $query[$key]));
+                if (isset($query->$key)) {
+                    $criterias->andWhere($expr->eq($key, $query->$key));
                 }
             }
 
@@ -91,7 +92,7 @@ class MapPageController extends Controller
 
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
-            'highlightedId' => $highlightedId,
+            'highlightList' => $highlightedId,
             'viewerPos' => $this->position,
 
             'filterQuery' => $query,

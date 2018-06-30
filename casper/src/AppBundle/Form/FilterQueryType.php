@@ -138,14 +138,14 @@ class FilterQueryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\FilterQuery'
+            'data_class' => 'AppBundle\Entity\FilterQuery',
+            'csrf_protection' => false
         ));
 
         #This make the form need an 'entityManager' key in the parameters array;
         # it will be stored into the $options[] parameters of buildForm
         $resolver->setRequired('entityManager');
     }
-
 
     public function getBlockPrefix()
     {

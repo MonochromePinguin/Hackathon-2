@@ -53,12 +53,46 @@ h1 {
     left: 75vw;
 }
 
-
+/* classes applied to icons and labels for the attractions */
 .attractionIcon {
     max-width: 10vw;
     max-height: 10vh;
 }
 
+.attractionCartridge {
+    border: 3px solid black;
+    border-radius: 0.5em;
+    padding: 0.3em;
+    font-size: 1em;
+    line-height: 0.8em;
+    color: white;
+    background-color: rgba(0,0,0, 0.5);
+    transition: background-color 0.8s, box-shadow 1s;
+}
+
+.attractionCartridge > p {
+    margin: 0.5em;
+}
+
+.attractionLabel {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+/* for highlighted attractions */
+
+.spotted > .attractionCartridge {
+    background-color: rgba(255,0,0,0.5);
+    box-shadow: 2px 2px 2px black;
+}
+
+.spotted > img {
+    filter: drop-shadow( 1em, 1em, 4em, red);
+}
+
+
+/* for the form inside the filter panel */
 
 form input[type="checkbox"] {
     margin-left: -2em;
@@ -70,7 +104,7 @@ font-weight: bold;
 font-size: 1.4em;
 }
 
-#appbundle_filterquery_horaires > fieldset.form-group > legend,
+#filterquery_horaires > fieldset.form-group > legend,
 .form-check-label {
     font-weight: bold;
     margin-bottom: 0.5em;
