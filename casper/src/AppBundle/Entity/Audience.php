@@ -31,6 +31,13 @@ class Audience
     /**
      * @var string
      *
+     * @ORM\Column(name="label", type="string", length=255, unique=true)
+     */
+    private $label;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -68,6 +75,22 @@ class Audience
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
     }
 
     /**

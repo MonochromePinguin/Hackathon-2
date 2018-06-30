@@ -31,6 +31,13 @@ class Category
     /**
      * @var string
      *
+     * @ORM\Column(name="label", type="string", length=255, unique=true)
+     */
+    private $label;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -74,6 +81,39 @@ class Category
     {
         return $this->name;
     }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel(string $label)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
     /**
      * Constructor
      */

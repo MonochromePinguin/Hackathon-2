@@ -2,91 +2,42 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Audience;
+use AppBundle\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FiltreController extends Controller
 {
     //TODO: get this from DB
-    private const CATEGORY_CHOOSING = [
-        [
-            'label' => 'Sensations fortes',
-            'description' => 'pour amateurs de sensations fortes !',
-            'returnValue' => 'strong'
-        ],
-        [
-            'label' => 'Groupe d\'amis',
-            'description' => 'pour s\'amuser à se faire peur',
-            'returnValue' => 'friends'
-        ],
-        [
-            'label' => 'Famille',
-            'description' => 'les attractions pour tout les âges !',
-            'returnValue' => 'family'
-        ],
-        [
-            'label' => 'Enfants',
-            'description' => 'Pour les tout-petits',
-            'returnValue' => 'children'
+    const ALLOWED_STATES = [ 'audienceChoosing', 'categoryChoosing' ];
+
+    //TODO: questions too should be filled from DB
+    const STATE_LIST = [
+        'audienceChoosing' => [
+            'question' => 'Qui êtes vous ... ?',
+            'relatedEntity' => Audience::class,
+            'nextState' => 'categoryChoosing'
+            ],
+        'categoryChoosing' => [
+            'question' => 'Et que cherchez-vous ... ?',
+            'relatedEntity' => Category::class,
+            'nextState' => 'GO'
         ]
     ];
-
-    //TODO: get this from DB
-    private const SENSATION_CHOOSING = [
-        [
-            'label' => 'Épouvante',
-            'description' => 'pour amateurs de sensations fortes !',
-            'returnValue' => 'terror'
-        ],
-        [
-            'label' => 'Effrayant',
-            'description' => 'pour s\'amuser à se faire peur',
-            'returnValue' => 'frightening'
-        ],
-        [
-            'label' => 'On s\'amuse',
-            'description' => 'Se faire peur c\'est bien mais pas trop',
-            'returnValue' => 'funny'
-        ]
-    ];
-
-    //TODO: get this from DB
-    const ALLOWED_STATES = [ 'categoryChoosing', 'sensationChoosing' ];
-    const ALLOWED_CATEGORIES = [
-        'unchoosen', 'strong', 'friends', 'family', 'children'
-    ];
-    const ALLOWED_SENSATIONS = [ 'terror', 'frightening', 'funny'];
 
     //TODO: these should be filled from DB
-    private static $stateList = [];
-
-    const CATEGORY_BACKGROUNDS = [
+    const AUDIENCE_BACKGROUNDS = [
         'unchoosen' => '/images/fond6.jpeg',
         'strong' => '/images/strong.jpg',
         'friends' => '/images/fond-3.jpg',
         'family' => '/images/joker.jpg',
         'children' => '/images/fond6.jpeg'
     ];
-
-    public function __construct()
-    {
-        self::$stateList['categoryChoosing'] = [
-            'question' => 'Qui êtes vous ... ?',
-            'choosing' => 'category',
-            'choiceList' => self::CATEGORY_CHOOSING,
-            'nextState' => 'sensationChoosing'
-        ];
-
-        self::$stateList['sensationChoosing'] = [
-            'question' => 'Et que cherchez-vous ... ?',
-            'choosing' => 'sensation',
-            'choiceList' => self::SENSATION_CHOOSING,
-            'nextState' => 'GO'
-        ];
-    }
 
 
     /**
@@ -95,67 +46,83 @@ class FiltreController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $state = 'categoryChoosing';
-        $category = 'unchoosen';
+        $state = 'audienceChoosing';
+        $audience = 'unchoosen';
 
         #TODO: to be clean, this should be an URI apart
+
         #if we receive a marker in the POST request, it's ajax !
+        #
         if ($request->isMethod('post')
             && ('1' == $request->request->get('ajaxFlag'))
         ) {
-            $currentState = $request->request->get('currentState');
+            $askedState = $request->request->get('currentState');
             $choosen = $request->request->get('choosen');
 
-            if (isset($currentState) && in_array($currentState, self::ALLOWED_STATES)) {
-                $state = $currentState;
+            if (isset($askedState)
+                && in_array($askedState, self::ALLOWED_STATES)
+            ) {
+                $state = $askedState;
             } else {
-                header('http/1.0 400 Lack of required parameters');
-                return false;
+                $response = new Response();
+                $response->sendHeaders('http/1.0 400 Lack of required parameters');
+                return $response;
             }
 
-            #TODO: add error checking for $sensation, $categories, ...
+            $entity = self::STATE_LIST[$state]['relatedEntity'];
+            $repo = $this->getDoctrine()->getRepository($entity);
+
+            # test the field "choosen" is valid
+            if (null == $repo->findByName($choosen)) {
+                $response = new Response();
+                $response->sendHeaders('http/1.0 400 invalid parameters');
+                return $response;
+            }
+
             switch ($state) {
-                case 'categoryChoosing':
-                    $category = $choosen;
-                    $state = self::$stateList[$state]['nextState'];
+                case 'audienceChoosing':
+                    $state = self::STATE_LIST[$state]['nextState'];
+                    $audience = $choosen;
+
+                    $entity = self::STATE_LIST[$state]['relatedEntity'];
+                    $repo = $this->getDoctrine()->getRepository($entity);
 
                     $newContent = $this->renderView(
                         'filtre/choiceList.html.twig',
                         [
-                            'question' => self::$stateList[$state]['question'],
-                            'choices' => self::$stateList[$state]['choiceList']
+                            'question' => self::STATE_LIST[$state]['question'],
+                            'choices' => $repo->findAll()
                         ]
                     );
 
                     return new JsonResponse([
                         'newState' => $state,
-                        'category' => $category,
-                        'newBackground' => self::CATEGORY_BACKGROUNDS[$category],
+                        'audience' => $audience,
+                        'newBackground' => self::AUDIENCE_BACKGROUNDS[$audience],
                         'newContent' => $newContent
                     ]);
 
-                case 'sensationChoosing':
-                    $sensation = $choosen;
-                    $category = $request->request->get('category');
-                    $state = self::$stateList[$state]['nextState'];
-
-                    return new JsonResponse([
-                       'newState' => 'GO',
-                       'category' => $category,
-                       'sensation' => $sensation
+                case 'categoryChoosing':
+                    $category = $choosen;
+                     return new JsonResponse([
+                         'newState' => 'GO',
+                         'category' => $choosen
                     ]);
             }
         }
 
-
+        # this is not a POST request – we still must show a choice list
+        #
+        $entity = self::STATE_LIST[$state]['relatedEntity'];
+        $repo = $this->getDoctrine()->getRepository($entity);
 
         return $this->render(
             'filtre/index.html.twig',
             [
-                'question' => self::$stateList[$state]['question'],
-                'choices' => self::$stateList[$state]['choiceList'],
+                'question' => self::STATE_LIST[$state]['question'],
+                'choices' => $repo->findAll(),
                 'currentState' => $state,
-                'background' => self::CATEGORY_BACKGROUNDS[$category]
+                'background' => self::AUDIENCE_BACKGROUNDS[$audience]
             ]
         );
     }

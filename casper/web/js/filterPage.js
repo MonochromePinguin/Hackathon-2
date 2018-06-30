@@ -1,17 +1,17 @@
 //GLOBAL VARIABLES ARE EVILS. BUT WE'RE IN HACKATHON...
+currentAudience = null;
 currentCategory = null;
-currentSensation = null;
 
 
 function reloadState( datas, status )
 {
     currentState = datas.newState;
 
+    if ( null != datas.audience )
+        currentAudience = datas.audience;
+
     if ( null != datas.category )
         currentCategory = datas.category;
-
-    if ( null != datas.sensation )
-        currentSensation = datas.sensation;
 
     if ('GO' == currentState )
     {
@@ -19,7 +19,7 @@ function reloadState( datas, status )
             '/map',
             {
                 'category': currentCategory,
-                'sensation': currentSensation
+                'audience': currentAudience
             }
         );
     }
@@ -41,11 +41,6 @@ function handleRadioBtnChoice(element) {
             'currentState': currentState,
             'choosen': element.dataset.choice
         };
-
-        if ( null != currentCategory )
-            request.category = currentCategory;
-        if ( null != currentSensation )
-            request.sensation = currentSensation;
 
         doAjaxRequest(
             null,null,
