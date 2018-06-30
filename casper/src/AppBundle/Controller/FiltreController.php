@@ -104,10 +104,10 @@ class FiltreController extends Controller
 
                 case 'categoryChoosing':
                     $category = $choosen;
-                     return new JsonResponse([
+                    return new JsonResponse([
                          'newState' => 'GO',
                          'category' => $choosen
-                    ]);
+                     ]);
             }
         }
 
