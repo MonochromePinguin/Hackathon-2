@@ -11,8 +11,8 @@ $(document).ready( function(){
     {
         for ( let el of $attractionList ) {
             id = el.dataset.attractionId;
-
-            if ( id in highlightIdList )
+console.log(' élém  n°' + id )
+            if ( highlightIdList.includes(id) )
                 el.classList.add( 'spotted' );
             else
                 el.classList.remove( 'spotted' );
