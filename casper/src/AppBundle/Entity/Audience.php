@@ -42,6 +42,10 @@ class Audience
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Attraction", mappedBy="audience")
+     */
+    private $attractionList;
 
     /**
      * Get id.
@@ -115,5 +119,48 @@ class Audience
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->attractionList = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add attractionList.
+     *
+     * @param \AppBundle\Entity\Attraction $attractionList
+     *
+     * @return Audience
+     */
+    public function addAttractionList(\AppBundle\Entity\Attraction $attractionList)
+    {
+        $this->attractionList[] = $attractionList;
+
+        return $this;
+    }
+
+    /**
+     * Remove attractionList.
+     *
+     * @param \AppBundle\Entity\Attraction $attractionList
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeAttractionList(\AppBundle\Entity\Attraction $attractionList)
+    {
+        return $this->attractionList->removeElement($attractionList);
+    }
+
+    /**
+     * Get attractionList.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttractionList()
+    {
+        return $this->attractionList;
     }
 }

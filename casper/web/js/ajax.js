@@ -33,7 +33,7 @@ function doAjaxRequest($feedback, $div, url, sentData, callback)
 //TODO: make this function able to send arrays
 function goToUrlByPostMethod( url, parameters )
 {
-    var form = document.createElement('form');
+    let form = document.createElement('form');
 
     form.setAttribute('method', 'POST');
     form.setAttribute('action', url);

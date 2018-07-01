@@ -1,11 +1,10 @@
 
 $(document).ready( function(){
 
-    $attractionList = $('div[data-attraction-id]');
-    $inputList = $('#filterquery input');
+    let $attractionList = $('div[data-attraction-id]');
+    let $inputList = $('#filterquery input');
 
-    $watchedForm = $('#js-watched-form');
-    $sendBtn = $('#sendBtn');
+    let $watchedForm = $('#js-watched-form');
 
 
     function refreshHighlight()
@@ -13,7 +12,7 @@ $(document).ready( function(){
         for ( let el of $attractionList ) {
             id = el.dataset.attractionId;
 
-            if ( id in highlightList )
+            if ( id in highlightIdList )
                 el.classList.add( 'spotted' );
             else
                 el.classList.remove( 'spotted' );
@@ -22,7 +21,7 @@ $(document).ready( function(){
 
     function reloadState( data, status )
     {
-        highlightList = data.highlightList;
+        highlightIdList = data.highlightIdList;
         refreshHighlight();
     }
 

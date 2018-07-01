@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\FilterQuery;
+
 /**
  * AttractionRepository
  *
@@ -10,4 +12,41 @@ namespace AppBundle\Repository;
  */
 class AttractionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findFromFilterQuery(
+        FilterQuery $filterQuery,
+        array $multipleCriterias,
+        array $singleCriterias
+    ) : array {
+
+        $query = $this->createQueryBuilder('att')->select('att.id');
+        $expr = $query->expr();
+
+        #each field whose name is in $multipleCriterias[] is an array of entities
+        #
+        foreach ($multipleCriterias as $key => $entityName) {
+
+            # ↓ indirect field access
+            $array = $filterQuery->$key;
+
+            if (isset($array) && (0 != count($array))) {
+
+                #parse the content of the array
+                foreach($filterQuery->$key as $entity) {
+                    $query->orWhere(
+                        $expr->eq( 'att.' . $entityName, $entity->getId())
+                    );
+                }
+            }
+        }
+
+/*            foreach (self::SINGLE_CRITERIAS as $key) {
+            if (isset($query->$key)) {
+                $criterias->andWhere($expr->eq($key, $query->$key));
+            }
+        }*/
+
+        #TODO: the correct method is to use a custom hydratator:
+        # see  https://stackoverflow.com/questions/11657835/how-to-get-a-one-dimensional-scalar-array-as-a-doctrine-dql-query-result
+        return array_column($query->getQuery()->getScalarResult(), 'id');
+    }
 }

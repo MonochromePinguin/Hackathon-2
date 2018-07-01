@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Attraction
  *
  * @ORM\Table(name="attraction")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AttractionRepository")
  */
 class Attraction
 {
@@ -52,16 +52,16 @@ class Attraction
     /**
      * @var Category
      *
-     * @ORM\Column(name="categoryId", type="integer")
      * @ORM\ManyToOne(targetEntity="Category",inversedBy="attractionList")
+     * @ORM\JoinColumn(name="categoryId", referencedColumnName="id")
      */
     private $category;
 
     /**
      * @var Audience
      *
-     * @ORM\Column(name="audienceId", type="integer")
      * @ORM\ManyToOne(targetEntity="Audience",inversedBy="attractionList")
+     * @ORM\JoinColumn(name="audienceId", referencedColumnName="id")
      */
     private $audience;
 
@@ -170,6 +170,29 @@ class Attraction
         return $this->name;
     }
 
+    /**
+     * Set shortDescription.
+     *
+     * @param string $shortDescription
+     *
+     * @return Attraction
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get shortDescription.
+     *
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
 
     /**
      * Set description.
@@ -196,52 +219,46 @@ class Attraction
     }
 
     /**
-     * @return string
-     */
-    public function getShortDescription(): string
-    {
-        return $this->shortDescription;
-    }
-
-    /**
-     * @param string $shortDescription
-     */
-    public function setShortDescription(string $shortDescription)
-    {
-        $this->shortDescription = $shortDescription;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImageURL(): string
-    {
-        return $this->imageURL;
-    }
-
-    /**
-     * @param string $imageURL
-     */
-    public function setImageURL(string $imageURL)
-    {
-        $this->imageURL = $imageURL;
-    }
-
-    /**
-     * Set latitude.
+     * Set imageURL.
      *
-     * @param float $latitude
+     * @param string $imageURL
      *
      * @return Attraction
      */
-    public function setLatitude($latitude)
+    public function setImageURL($imageURL)
     {
-        $this->latitude = $latitude;
+        $this->imageURL = $imageURL;
 
         return $this;
     }
 
     /**
+     * Get imageURL.
+     *
+     * @return string
+     */
+    public function getImageURL()
+    {
+        return $this->imageURL;
+    }
+
+    /**
+     * Set percentageX.
+     *
+     * @param float $percentageX
+     *
+     * @return Attraction
+     */
+    public function setPercentageX($percentageX)
+    {
+        $this->percentageX = $percentageX;
+
+        return $this;
+    }
+
+    /**
+     * Get percentageX.
+     *
      * @return float
      */
     public function getPercentageX()
@@ -250,61 +267,27 @@ class Attraction
     }
 
     /**
-     * @param float $percentageX
-     */
-    public function setPercentageX($percentageX)
-    {
-        $this->percentageX = $percentageX;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPercentageY()
-    {
-        return $this->percentageY;
-    }
-
-    /**
+     * Set percentageY.
+     *
      * @param float $percentageY
+     *
+     * @return Attraction
      */
     public function setPercentageY($percentageY)
     {
         $this->percentageY = $percentageY;
-    }
-
-    /**
-     * Get latitude.
-     *
-     * @return float
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Set longitude.
-     *
-     * @param float $longitude
-     *
-     * @return Attraction
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
 
         return $this;
     }
 
     /**
-     * Get longitude.
+     * Get percentageY.
      *
      * @return float
      */
-    public function getLongitude()
+    public function getPercentageY()
     {
-        return $this->longitude;
+        return $this->percentageY;
     }
 
     /**
@@ -356,13 +339,157 @@ class Attraction
     }
 
     /**
-     * Set category.
+     * Set meanWaitTime.
      *
-     * @param int $category
+     * @param \DateTime|null $meanWaitTime
      *
      * @return Attraction
      */
-    public function setCategory($category)
+    public function setMeanWaitTime($meanWaitTime = null)
+    {
+        $this->meanWaitTime = $meanWaitTime;
+
+        return $this;
+    }
+
+    /**
+     * Get meanWaitTime.
+     *
+     * @return \DateTime|null
+     */
+    public function getMeanWaitTime()
+    {
+        return $this->meanWaitTime;
+    }
+
+    /**
+     * Set meanDuration.
+     *
+     * @param \DateTime|null $meanDuration
+     *
+     * @return Attraction
+     */
+    public function setMeanDuration($meanDuration = null)
+    {
+        $this->meanDuration = $meanDuration;
+
+        return $this;
+    }
+
+    /**
+     * Get meanDuration.
+     *
+     * @return \DateTime|null
+     */
+    public function getMeanDuration()
+    {
+        return $this->meanDuration;
+    }
+
+    /**
+     * Set opertureTime.
+     *
+     * @param \DateTime $opertureTime
+     *
+     * @return Attraction
+     */
+    public function setOpertureTime($opertureTime)
+    {
+        $this->opertureTime = $opertureTime;
+
+        return $this;
+    }
+
+    /**
+     * Get opertureTime.
+     *
+     * @return \DateTime
+     */
+    public function getOpertureTime()
+    {
+        return $this->opertureTime;
+    }
+
+    /**
+     * Set closingTime.
+     *
+     * @param \DateTime $closingTime
+     *
+     * @return Attraction
+     */
+    public function setClosingTime($closingTime)
+    {
+        $this->closingTime = $closingTime;
+
+        return $this;
+    }
+
+    /**
+     * Get closingTime.
+     *
+     * @return \DateTime
+     */
+    public function getClosingTime()
+    {
+        return $this->closingTime;
+    }
+
+    /**
+     * Set priceAdult.
+     *
+     * @param int $priceAdult
+     *
+     * @return Attraction
+     */
+    public function setPriceAdult($priceAdult)
+    {
+        $this->priceAdult = $priceAdult;
+
+        return $this;
+    }
+
+    /**
+     * Get priceAdult.
+     *
+     * @return int
+     */
+    public function getPriceAdult()
+    {
+        return $this->priceAdult;
+    }
+
+    /**
+     * Set priceChild.
+     *
+     * @param int $priceChild
+     *
+     * @return Attraction
+     */
+    public function setPriceChild($priceChild)
+    {
+        $this->priceChild = $priceChild;
+
+        return $this;
+    }
+
+    /**
+     * Get priceChild.
+     *
+     * @return int
+     */
+    public function getPriceChild()
+    {
+        return $this->priceChild;
+    }
+
+    /**
+     * Set category.
+     *
+     * @param \AppBundle\Entity\Category|null $category
+     *
+     * @return Attraction
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
         $this->category = $category;
 
@@ -372,7 +499,7 @@ class Attraction
     /**
      * Get category.
      *
-     * @return int
+     * @return \AppBundle\Entity\Category|null
      */
     public function getCategory()
     {
@@ -380,114 +507,26 @@ class Attraction
     }
 
     /**
-     * @return Audience
+     * Set audience.
+     *
+     * @param \AppBundle\Entity\Audience|null $audience
+     *
+     * @return Attraction
+     */
+    public function setAudience(\AppBundle\Entity\Audience $audience = null)
+    {
+        $this->audience = $audience;
+
+        return $this;
+    }
+
+    /**
+     * Get audience.
+     *
+     * @return \AppBundle\Entity\Audience|null
      */
     public function getAudience()
     {
         return $this->audience;
-    }
-
-    /**
-     * @param Audience $audience
-     */
-    public function setAudience($audience)
-    {
-        $this->audience = $audience;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getMeanWaitTime(): \DateTime
-    {
-        return $this->meanWaitTime;
-    }
-
-    /**
-     * @param \DateTime|null $meanWaitTime
-     */
-    public function setMeanWaitTime(\DateTime $meanWaitTime)
-    {
-        $this->meanWaitTime = $meanWaitTime;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getMeanDuration(): \DateTime
-    {
-        return $this->meanDuration;
-    }
-
-    /**
-     * @param \DateTime $meanDuration
-     */
-    public function setMeanDuration(\DateTime $meanDuration)
-    {
-        $this->meanDuration = $meanDuration;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getOpertureTime(): \DateTime
-    {
-        return $this->opertureTime;
-    }
-
-    /**
-     * @param \DateTime $opertureTime
-     */
-    public function setOpertureTime(\DateTime $opertureTime)
-    {
-        $this->opertureTime = $opertureTime;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getClosingTime(): \DateTime
-    {
-        return $this->closingTime;
-    }
-
-    /**
-     * @param \DateTime $closingTime
-     */
-    public function setClosingTime(\DateTime $closingTime)
-    {
-        $this->closingTime = $closingTime;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriceAdult(): int
-    {
-        return $this->priceAdult;
-    }
-
-    /**
-     * @param int $priceAdult
-     */
-    public function setPriceAdult(int $priceAdult)
-    {
-        $this->priceAdult = $priceAdult;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriceChild(): int
-    {
-        return $this->priceChild;
-    }
-
-    /**
-     * @param int $priceChild
-     */
-    public function setPriceChild(int $priceChild)
-    {
-        $this->priceChild = $priceChild;
     }
 }

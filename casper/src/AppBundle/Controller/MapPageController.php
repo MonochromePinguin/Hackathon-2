@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Attraction;
 use AppBundle\Entity\FilterQuery;
-use Doctrine\Common\Collections\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,11 +15,16 @@ class MapPageController extends Controller
     private $position;
 
     # all fields of the Attraction entity we can use as criteria
+    #
+
+    # fields (of FiterRequest) being arrays of entities
+    #       => related Attraction entity field names
     const MULTIPLE_CRITERIAS = [
-        'audience',
-        'category'
+        'audiences' => 'audience',
+        'categories' => 'category',
     ];
 
+    # simple fields with continuous values
     const SINGLE_CRITERIAS = [
         'minUserSize',
         'minRequiredAge',
@@ -46,69 +50,45 @@ class MapPageController extends Controller
     public function mapPageAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $repo = $em->getRepository(Attraction::class);
+
         $attractions = $repo->findAll();
 
-        $highlightedId = [];
+        $highlightIdList = [];
 
         # create the filter form shown in the lateral panel
         #
-        $query = new FilterQuery();
+        $filterQuery = new FilterQuery();
         $form = $this->createForm(
             'AppBundle\Form\FilterQueryType',
-            $query,
+            $filterQuery,
             ['entityManager' => $em]
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            #use these results to build the list of highlighted attractions
-            #
-            $criterias = Criteria::create();
-            $expr = Criteria::expr();
-
-            foreach (self::MULTIPLE_CRITERIAS as $key ) {
-                if (isset($query->$key)) {
-                    $criterias->orWhere(
-                        $expr->eq($key, $query->$key)
-                    );
-                }
-            }
-
-            foreach (self::SINGLE_CRITERIAS as $key) {
-                if (isset($query->$key)) {
-                    $criterias->andWhere($expr->eq($key, $query->$key));
-                }
-            }
-
-            $selectedAttractions = $repo->matching($criterias);
-
-            if (0 != count($selectedAttractions)) {
-                foreach ($selectedAttractions as $attraction) {
-                    $highlightedId[] = $attraction->getId();
-                }
-            }
+            # the criteria are handled to the AttractionRepository
+            # to build the request
+            $highlightIdList = $repo->findFromFilterQuery(
+                $filterQuery,
+                self::MULTIPLE_CRITERIAS,
+                self::SINGLE_CRITERIAS
+            );
         }
 
         if ($request->isMethod('post')
             && $request->isXmlHttpRequest()
         ) {
             return new JsonResponse([
-                'highlightList' => $highlightedId,
-                'debug' => $request->getContent(),
-                'debugFormat' => $request->getContentType(),
-                'debugAudiences' => $request->request->all(),
-                'debugCategories' => $request->request->all()
+                'highlightIdList' => $highlightIdList
             ]);
         }
 
         return $this->render('map/map.html.twig', [
             'attractionList' => $attractions,
-            'highlightList' => $highlightedId,
+            'highlightIdList' => $highlightIdList,
             'viewerPos' => $this->position,
 
-            'filterQuery' => $query,
             'filterQuery_form' => $form->createView()
         ]);
     }
