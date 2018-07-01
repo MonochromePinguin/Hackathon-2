@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\FilterQuery;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * AttractionRepository
@@ -19,21 +21,25 @@ class AttractionRepository extends \Doctrine\ORM\EntityRepository
     ) : array {
 
         $query = $this->createQueryBuilder('att')->select('att.id');
-        $expr = $query->expr();
 
         #each field whose name is in $multipleCriterias[] is an array of entities
         #
-        foreach ($multipleCriterias as $key => $entityName) {
-
+        foreach ($multipleCriterias as $key => $info) {
             # ↓ indirect field access
             $array = $filterQuery->$key;
 
             if (isset($array) && (0 != count($array))) {
 
-                #parse the content of the array
-                foreach($filterQuery->$key as $entity) {
+                $field = $info['field'];
+                $alias = $info['alias'];
+
+                $expr = $query->expr();
+
+                $query->join('att.' . $field, $alias);
+
+                foreach ($array as $entity) {
                     $query->orWhere(
-                        $expr->eq( 'att.' . $entityName, $entity->getId())
+                        $expr->eq($alias . '.name', $expr->literal($entity->getName()) )
                     );
                 }
             }

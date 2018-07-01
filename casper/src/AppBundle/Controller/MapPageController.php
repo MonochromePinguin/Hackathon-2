@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Attraction;
+use AppBundle\Entity\Audience;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\FilterQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,10 +20,16 @@ class MapPageController extends Controller
     #
 
     # fields (of FiterRequest) being arrays of entities
-    #       => related Attraction entity field names
+    #       => related fields in the Attraction entity
     const MULTIPLE_CRITERIAS = [
-        'audiences' => 'audience',
-        'categories' => 'category',
+        'audiences' => [
+            'field' => 'audience',
+            'alias' => 'aud'
+        ],
+        'categories' => [
+            'field' => 'category',
+            'alias' => 'cat'
+        ]
     ];
 
     # simple fields with continuous values
