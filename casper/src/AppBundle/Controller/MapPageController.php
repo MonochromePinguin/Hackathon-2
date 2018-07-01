@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class MapPageController extends Controller
@@ -88,6 +89,18 @@ class MapPageController extends Controller
                     $highlightedId[] = $attraction->getId();
                 }
             }
+        }
+
+        if ($request->isMethod('post')
+            && $request->isXmlHttpRequest()
+        ) {
+            return new JsonResponse([
+                'highlightList' => $highlightedId,
+                'debug' => $request->getContent(),
+                'debugFormat' => $request->getContentType(),
+                'debugAudiences' => $request->request->all(),
+                'debugCategories' => $request->request->all()
+            ]);
         }
 
         return $this->render('map/map.html.twig', [

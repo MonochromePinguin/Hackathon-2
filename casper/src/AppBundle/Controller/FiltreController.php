@@ -51,10 +51,8 @@ class FiltreController extends Controller
 
         #TODO: to be clean, this should be an URI apart
 
-        #if we receive a marker in the POST request, it's ajax !
-        #
         if ($request->isMethod('post')
-            && ('1' == $request->request->get('ajaxFlag'))
+            && $request->isXmlHttpRequest()
         ) {
             $askedState = $request->request->get('currentState');
             $choosen = $request->request->get('choosen');

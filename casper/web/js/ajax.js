@@ -5,14 +5,14 @@ function showErrorMsg( msg )
 }
 
 
-function doAjaxRequest($feedback, $div, url, sentDatas, callback)
+function doAjaxRequest($feedback, $div, url, sentData, callback)
 {
     if ( null != $feedback )
         $feedback.css( 'display', 'block' );
     if ( null != $div )
         $div.css( 'hide' );
 
-    $.post( url, sentDatas )
+    $.post( url, sentData )
      .done( callback )
 
      .fail( function( jqXHR, textStatus, status ){

@@ -39,7 +39,6 @@ $(document).ready( function() {
         if ($(element).is(':checked'))
         {
             let request = {
-                'ajaxFlag': 1,
                 'currentState': currentState,
                 'choosen': element.dataset.choice
             };

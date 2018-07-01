@@ -48,7 +48,15 @@
                  {# the filter panel is shown here #}
 {# TODO: the validation is off for now to allow sending empty input data,
  just get it back when a workaround is found!  #}
-                  {{ form_start( filterQuery_form, { attr: {novalidate: 'novalidate'} } ) }}
+                  {{ form_start(
+                      filterQuery_form,
+                      {
+                          attr: {
+                            novalidate: 'novalidate',
+                            id: 'js-watched-form'
+                          }
+                      }
+                  ) }}
                      {{ form_widget(filterQuery_form) }}
                   {#   <noscript>#}
                          <input type="submit" value="Envoyer Requête" />

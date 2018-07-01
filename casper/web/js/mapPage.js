@@ -2,9 +2,13 @@
 $(document).ready( function(){
 
     $attractionList = $('div[data-attraction-id]');
+    $inputList = $('#filterquery input');
+
+    $watchedForm = $('#js-watched-form');
     $sendBtn = $('#sendBtn');
 
-    function refreshHighlightList()
+
+    function refreshHighlight()
     {
         for ( let el of $attractionList ) {
             id = el.dataset.attractionId;
@@ -12,19 +16,24 @@ $(document).ready( function(){
             if ( id in highlightList )
                 el.classList.add( 'spotted' );
             else
-                console.log( '.....;' );
                 el.classList.remove( 'spotted' );
         }
     }
 
-/*    $('#filterquery input').change( function() {
+    function reloadState( data, status )
+    {
+        highlightList = data.highlightList;
+        refreshHighlight();
+    }
+
+    $inputList.change( function() {
         doAjaxRequest(
-            null,null,
+            null, null,
             '/map',
-            { test: "test"},
+            $watchedForm.serialize(),
+            reloadState
         )
+    });
 
-    });*/
-
-    refreshHighlightList();
+    refreshHighlight();
 });
