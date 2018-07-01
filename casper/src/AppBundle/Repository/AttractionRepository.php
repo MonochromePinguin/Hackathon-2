@@ -3,8 +3,6 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\FilterQuery;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * AttractionRepository
@@ -18,8 +16,9 @@ class AttractionRepository extends \Doctrine\ORM\EntityRepository
         FilterQuery $filterQuery,
         array $multipleCriterias,
         array $singleCriterias
-    ) : array {
-
+    ) : array
+    {
+        #the rest of the query will be completed in the loop
         $query = $this->createQueryBuilder('att')->select('att.id');
 
         #each field whose name is in $multipleCriterias[] is an array of entities
@@ -33,17 +32,27 @@ class AttractionRepository extends \Doctrine\ORM\EntityRepository
                 $field = $info['field'];
                 $alias = $info['alias'];
 
+                $query->join('att.' . $field, $alias);
                 $expr = $query->expr();
 
-                $query->join('att.' . $field, $alias);
+                #We are building a WHERE ( name = x OR name = y OR ... ) AND ...
+                $orCond = $expr ->orX();
 
-                foreach ($array as $entity) {
-                    $query->orWhere(
-                        $expr->eq($alias . '.name', $expr->literal($entity->getName()) )
+                ## AND for the first item of the loop,
+                ## OR for the others : Doctrine will treat them as AND( ... OR ... )
+                foreach( $array as $entity ) {
+                    $orCond->add(
+                        $expr->eq(
+                            $alias . '.name',
+                            $expr->literal($entity->getName())
+                        )
                     );
                 }
+
+                $query->andWhere( $orCond );
             }
         }
+
 
 /*            foreach (self::SINGLE_CRITERIAS as $key) {
             if (isset($query->$key)) {
@@ -51,7 +60,7 @@ class AttractionRepository extends \Doctrine\ORM\EntityRepository
             }
         }*/
 
-        #TODO: the correct method is to use a custom hydratator:
+#TODO: the correct method is to use a custom hydratator:
         # see  https://stackoverflow.com/questions/11657835/how-to-get-a-one-dimensional-scalar-array-as-a-doctrine-dql-query-result
         return array_column($query->getQuery()->getScalarResult(), 'id');
     }
