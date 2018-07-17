@@ -1,1 +1,3 @@
+### TODO: code cleanup and functionality finalization!
 # Hackathon-2
+## 48 hours to produce a search and location map for an attraction park ...
